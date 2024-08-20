@@ -1,0 +1,34 @@
+@import './variables';
+
+.flexbox-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.home-page-container {
+  @extend .flexbox-centered;
+  text-align: center;
+  background-color: $pale-blue;
+}
+
+.get-started-btn {
+  font-size: 20px;
+  margin: 20px;
+  height: 50px;
+  border-radius: 10px;
+}
+
+.logo {
+  width: 250px;
+  height: 250px;
+  margin: 20px;
+}
+
+.home-page-contents {
+  @extend .flexbox-centered;
+  max-width: 1000px;
+  flex-direction: column;
+}

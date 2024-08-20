@@ -1,0 +1,24 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav mode="side" opened class="sidenav">
+        <mat-nav-list class="nav-list">
+            <ng-container *ngIf="store.builders().length > 0 && !store.loading()">
+                <div class="nav-item" *ngFor="let builder of store.builders()">
+                    <a [routerLink]="['/builders/', builder.title]" routerLinkActive="active" mat-list-item>
+                        {{ builder.title }}
+                    </a>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="store.loading()">
+                <div class="nav-item" *ngFor="let item of placeholderArray">
+                    <a mat-list-item>
+                        <p class="placeholder"></p>
+                    </a>
+                </div>
+            </ng-container>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+

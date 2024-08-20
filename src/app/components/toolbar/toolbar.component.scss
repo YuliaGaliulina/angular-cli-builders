@@ -1,0 +1,29 @@
+@import './variables';
+
+.toolbar {
+  background: $pale-blue-2;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.logo-wrap {
+  color: var(--mdc-text-button-label-text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .logo-title {
+    font-weight: 500;
+    font-size: 18px;
+    margin: 0 8px;
+  }
+
+  .logo {
+    width: 50px;
+    height: 50px;
+  }
+}
+

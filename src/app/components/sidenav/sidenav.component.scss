@@ -1,0 +1,41 @@
+@import './variables';
+
+.toolbar,
+.sidenav {
+  background: #d7e3ff40;;
+}
+
+.sidenav-container {
+  height: calc(100vh - 55px);
+}
+
+.sidenav {
+  border-radius: initial;
+  height: 100%;
+  overflow: hidden;
+}
+
+.sidenav {
+  width: 250px;
+  padding: 16px;
+}
+
+.markdown-wrap {
+  overflow: scroll;
+  height: 100%;
+}
+
+.nav-item {
+  text-transform: capitalize;
+}
+
+.placeholder {
+  background-color: $pale-gray;
+  width: 100% ;
+  height: 19px;
+  margin: 0;
+}
+
+.active {
+  background: $pale-blue-2;
+}
