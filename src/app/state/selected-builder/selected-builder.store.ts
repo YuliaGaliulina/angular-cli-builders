@@ -6,13 +6,13 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { NgVersion } from '../versions/ng-version';
 
 type SelectedBuilderState = {
-    selectedBuilder: string;
+    selectedBuilder: any;
     isLoading: boolean;
     error: boolean;
 }
 
 const initialState = {
-    selectedBuilder: '',
+    selectedBuilder: null,
     isLoading: false,
     error: false,
 };

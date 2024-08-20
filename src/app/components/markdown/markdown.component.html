@@ -1,8 +1,0 @@
-<div class="content">
-    <div *ngIf="selectedBuilderStore.loading()" class="loader">
-        <mat-spinner></mat-spinner>
-    </div>
-    <div *ngIf="!selectedBuilderStore.loading() && selectedBuilderStore.builder()" class="markdown-wrap">
-        {{ selectedBuilderStore.builder() }}
-    </div>
-</div>

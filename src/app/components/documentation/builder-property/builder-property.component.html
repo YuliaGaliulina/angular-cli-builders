@@ -1,0 +1,63 @@
+<div class="builder-property-section">
+    <div *ngIf="propertyKey" class="builder-property-wrapper">
+<!--   TODO: move condition into separate method    -->
+        <button
+                (click)="toggleCollapsible()"
+                *ngIf="(schema.type === 'array' && schema.items.type === 'object') || (schema.type === 'object' && schema.properties) || schema.oneOf || schema?.items?.oneOf"
+                class="toggle-button"
+                [class.collapsed]="!collapsed"
+        >&#x25B6;</button>
+        <strong class="builder-property-title">{{ propertyKey }}</strong>
+        <span class="builder-property-type">{{ getTypeText(schema) }}</span>
+    </div>
+    <p *ngIf="schema.description" class="builder-property-description">{{ schema.description }}</p>
+</div>
+
+<div [ngClass]="{visible: !collapsed, highlight: highlight,
+'builder-property-collapsible': !isOption}">
+    <div *ngIf="isArray(schema.items)" class="builder-property-children">
+        <div *ngFor="let item of schema.items">
+            <app-builder-property [schema]="item"></app-builder-property>
+        </div>
+    </div>
+
+    <div *ngIf="schema.type === 'array' && schema.items.type === 'object'" class="builder-property-children">
+        <app-builder-property
+                *ngFor="let key of objectKeys(schema.items.properties)"
+                [propertyKey]="key"
+                [schema]="schema.items.properties[key]">
+        </app-builder-property>
+    </div>
+
+
+    <div *ngIf="schema.type === 'object' && schema.properties" class="builder-property-children">
+        <app-builder-property
+                *ngFor="let key of objectKeys(schema.properties)"
+                [propertyKey]="key"
+                [schema]="schema.properties[key]">
+        </app-builder-property>
+
+    </div>
+
+    <div *ngIf="schema.oneOf" class="builder-property-children">
+        <div *ngFor="let item of schema.oneOf; let i = index">
+            <app-one-of-option [schema]="item" [id]="i">
+                <app-builder-property
+                        [isOption]="true"
+                        [schema]="item">
+                </app-builder-property>
+            </app-one-of-option>
+        </div>
+    </div>
+
+    <div *ngIf="schema?.items?.oneOf" class="builder-property-children">
+        <div *ngFor="let item of schema?.items?.oneOf; let i = index">
+            <app-one-of-option [schema]="item" [id]="i">
+                <app-builder-property
+                        [isOption]="true"
+                        [schema]="item">
+                </app-builder-property>
+            </app-one-of-option>
+        </div>
+    </div>
+</div>

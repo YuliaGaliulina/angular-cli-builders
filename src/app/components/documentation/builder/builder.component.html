@@ -1,0 +1,15 @@
+<div class="builder-page-container">
+    <div *ngIf="selectedBuilderStore.loading()" class="loader">
+        <mat-spinner></mat-spinner>
+    </div>
+
+    <div *ngIf="!selectedBuilderStore.loading() && selectedBuilderStore.builder() as schema" class="builder-contents">
+        <h1 *ngIf="schema.title" class="builder-title">{{ schema.title }}</h1>
+        <p *ngIf="schema.description" class="builder-description">{{ schema.description }}</p>
+        <app-builder-property
+                *ngFor="let prop of objectKeys(schema.properties)"
+                [propertyKey]="prop"
+                [schema]="schema.properties[prop]">
+        </app-builder-property>
+    </div>
+</div>

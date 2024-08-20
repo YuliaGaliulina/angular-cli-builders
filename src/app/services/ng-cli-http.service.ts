@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { from, map, Observable, switchMap } from 'rxjs';
 import { NgVersion } from '../state/versions/ng-version';
 import { Builder } from "../state/builder-list/Builder";
+import { dereference } from "@apidevtools/json-schema-ref-parser";
 
 const baseUrl = 'https://unpkg.com/@angular-devkit/build-angular@';
 
@@ -22,9 +23,18 @@ export class NgCliHttpService {
             }))
     }
     
-    getBuilder(version: string, path: string): Observable<string> {
+    getBuilder(version: string, path: string): Observable<any> {
         const formattedPath = path.replace(/^\.\//, '');
-        return this.http.get<string>(`${baseUrl}${version}/${formattedPath}`)
-        .pipe(map((schema) => JSON.stringify(schema)))
+        return this.http.get<any>(`${baseUrl}${version}/${formattedPath}`)
+            .pipe(
+                map((schema) => {
+                    if (schema.$id) {
+                        delete schema.$id;
+                    }
+                    
+                    return schema;
+                }),
+                switchMap((schema) => from(dereference(schema))),
+            );
     }
 }

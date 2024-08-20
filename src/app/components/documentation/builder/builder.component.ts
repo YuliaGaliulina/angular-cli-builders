@@ -1,32 +1,37 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { distinctUntilChanged, filter, map, Observable, Subscription, switchMap, tap } from "rxjs";
-import { BuilderListStore } from "../../state/builder-list/builder-list.store";
-import { VersionsStore } from "../../state/versions/versions.store";
-import { SelectedBuilderStore } from "../../state/selected-builder/selected-builder.store";
-import { NgVersion } from "../../state/versions/ng-version";
+import { BuilderListStore } from "../../../state/builder-list/builder-list.store";
+import { VersionsStore } from "../../../state/versions/versions.store";
+import { SelectedBuilderStore } from "../../../state/selected-builder/selected-builder.store";
+import { NgVersion } from "../../../state/versions/ng-version";
 import { toObservable } from "@angular/core/rxjs-interop";
-import { Builder } from "../../state/builder-list/Builder";
+import { Builder } from "../../../state/builder-list/Builder";
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
-import { NgIf } from "@angular/common";
+import { NgForOf, NgIf, NgTemplateOutlet } from "@angular/common";
+import { BuilderPropertyComponent } from "../builder-property/builder-property.component";
 
 @Component({
-    selector: 'app-markdown',
+    selector: 'app-builder',
     standalone: true,
     imports: [
         MatProgressSpinner,
-        NgIf
+        NgIf,
+        NgTemplateOutlet,
+        NgForOf,
+        BuilderPropertyComponent
     ],
-    templateUrl: './markdown.component.html',
-    styleUrl: './markdown.component.scss',
+    templateUrl: './builder.component.html',
+    styleUrl: './builder.component.scss',
 })
-export class MarkdownComponent implements OnInit, OnDestroy {
-    readonly versionsStore = inject(VersionsStore);
+export class BuilderComponent implements OnInit, OnDestroy {
     readonly selectedBuilderStore = inject(SelectedBuilderStore);
-    readonly builderListStore = inject(BuilderListStore);
+    objectKeys = Object.keys;
     
-    builders$: Observable<Builder[]> = toObservable(this.builderListStore.builders);
-    
+    private readonly versionsStore = inject(VersionsStore);
+    private readonly builderListStore = inject(BuilderListStore);
+
+    private builders$: Observable<Builder[]> = toObservable(this.builderListStore.builders);
     private subscription$ = new Subscription();
     
     constructor(
@@ -36,8 +41,6 @@ export class MarkdownComponent implements OnInit, OnDestroy {
     }
     
     ngOnInit() {
-        console.log('MarkdownComponent ngOnInit');
-        
         this.subscription$.add(this.route.params.pipe(
             map((params) => params['name']),
             distinctUntilChanged(),

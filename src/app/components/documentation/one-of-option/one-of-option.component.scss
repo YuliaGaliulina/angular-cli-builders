@@ -1,0 +1,25 @@
+.one-of-option-type {
+  color: #6a737d;
+  margin: 10px 0;
+  width: 100%;
+  text-align: center;
+}
+
+.one-of-option-title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  margin-left: 35px;
+}
+
+.one-of-option-title {
+  width: 100%;
+  font-weight: 500;
+}
+
+.one-of-option {
+  position: relative;
+  border-left: 3px solid #dc4a3063;
+  margin-bottom: 20px;
+}

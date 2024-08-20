@@ -1,0 +1,73 @@
+.builder-property-section {
+  display: flex;
+  margin-bottom: 35px;
+}
+
+.toggle-button {
+  position: absolute;
+  left: -35px;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: transparent;
+  transition: transform .1s ease-in-out;
+  color: #ba1a1a;
+}
+
+.toggle-button.collapsed {
+  transform: rotate(90deg);
+}
+
+.builder-property-collapsible {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .3s ease-in-out;
+  width: 100%;
+}
+
+.builder-property-collapsible.visible {
+  background-color: transparent;
+  max-height: max-content;
+  transition: background-color 0.3s ease;
+}
+
+.builder-property-collapsible.highlight {
+  background-color: rgba(215, 227, 255, 0.25);
+  transition: background-color 0.1s ease;
+}
+
+.builder-property-children {
+  padding-left: 35px;
+}
+
+.builder-property-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 170px;
+  min-width: 170px;
+  position: relative;
+}
+
+.builder-property-description {
+  width: 100%;
+  margin-left: 50px;
+}
+
+.builder-property-title {
+  font-weight: 600;
+  background-color: rgb(0 92 187 / 7%);
+  border-radius: 4px;
+  color: #ba1a1a;
+  text-align: center;
+  width: calc(100% - 20px);
+  padding: 3px 10px;
+}
+
+.builder-property-type {
+  color: #6a737d;
+  margin: 10px 0;
+  width: 100%;
+  text-align: center;
+}
