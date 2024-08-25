@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { NgClass, NgIf } from "@angular/common";
 import { BuilderHelperService } from "../../../services/builder-helper.service";
 
@@ -23,8 +23,9 @@ export class OneOfOptionComponent implements OnChanges {
     ) {
     }
     
-    ngOnChanges(): void {
-        // TODO: optimize ngOnChanges
-        this.propertyType = this.builderHelperService.getTypeText(this.schema)
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.schema.currentValue !== changes.schema.previousValue) {
+            this.propertyType = this.builderHelperService.getTypeText(this.schema)
+        }
     }
 }

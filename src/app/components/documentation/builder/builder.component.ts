@@ -55,7 +55,7 @@ export class BuilderComponent implements OnInit, OnDestroy {
             .pipe(
                 tap((path) => {
                     if (path === null) {
-                        // TODO: handle case 404
+                        // TODO: output user friendly message
                         this.router.navigate(['not-found']);
                     }
                 }),

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase } from "@angular/common";
 import { OneOfOptionComponent } from "../one-of-option/one-of-option.component";
 import { BuilderHelperService } from "../../../services/builder-helper.service";
@@ -36,8 +36,10 @@ export class BuilderPropertyComponent implements OnChanges {
     ) {
     }
     
-    ngOnChanges(): void {
-        this.propertyType = this.builderHelperService.getTypeText(this.schema);
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.schema.currentValue !== changes.schema.previousValue) {
+            this.propertyType = this.builderHelperService.getTypeText(this.schema)
+        }
     }
     
     toggleCollapsible() {

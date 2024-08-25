@@ -3,19 +3,22 @@
   margin: 10px 0;
   width: 100%;
   text-align: center;
+  white-space: nowrap;
 }
 
 .one-of-option-title-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 150px;
+  width: fit-content;
   margin-left: 35px;
 }
 
 .one-of-option-title {
   width: 100%;
   font-weight: 500;
+  white-space: nowrap;
+  margin-right: 12px;
 }
 
 .one-of-option {

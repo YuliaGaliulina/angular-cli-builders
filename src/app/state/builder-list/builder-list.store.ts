@@ -28,7 +28,7 @@ export const BuilderListStore = signalStore(
                 switchMap((currentVersion) => ngCliHttpService.getBuilders(currentVersion)),
                 tap((builders) => patchState(store, { builderList: builders, isLoading: false })),
                 finalize(() => {
-                    // TODO: error handling
+                    // TODO: handle error
                     patchState(store, { isLoading: false });
                 })
             )
