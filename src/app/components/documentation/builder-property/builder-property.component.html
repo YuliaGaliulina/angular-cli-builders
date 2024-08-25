@@ -8,7 +8,7 @@
                 [class.collapsed]="!collapsed"
         >&#x25B6;</button>
         <strong class="builder-property-title">{{ propertyKey }}</strong>
-        <span class="builder-property-type">{{ getTypeText(schema) }}</span>
+        <span class="builder-property-type">{{ propertyType }}</span>
     </div>
     <p *ngIf="schema.description" class="builder-property-description">{{ schema.description }}</p>
 </div>
@@ -25,7 +25,7 @@
         <app-builder-property
                 *ngFor="let key of objectKeys(schema.items.properties)"
                 [propertyKey]="key"
-                [schema]="schema.items.properties[key]">
+                [schema]="schema.items.properties?.[key]">
         </app-builder-property>
     </div>
 

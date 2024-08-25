@@ -10,7 +10,7 @@ const baseUrl = 'https://unpkg.com/@angular-devkit/build-angular@';
 @Injectable({
     providedIn: 'root'
 })
-export class NgCliHttpService {
+export class BuilderHttpService {
     
     constructor(private http: HttpClient) {
     }

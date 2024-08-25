@@ -1,6 +1,6 @@
 import { computed, inject } from '@angular/core';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
-import { NgCliHttpService } from '../../services/ng-cli-http.service';
+import { BuilderHttpService } from '../../services/builder-http.service';
 import { finalize, pipe, switchMap, tap } from 'rxjs';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { Builder } from './Builder';
@@ -21,7 +21,7 @@ const initialState = {
 export const BuilderListStore = signalStore(
     { providedIn: 'root' },
     withState<BuilderListState>(initialState),
-    withMethods((store, ngCliHttpService = inject(NgCliHttpService)) => ({
+    withMethods((store, ngCliHttpService = inject(BuilderHttpService)) => ({
         fetchBuilders: rxMethod<NgVersion>(
             pipe(
                 tap(() => patchState(store, { isLoading: true })),

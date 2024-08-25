@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { NgClass, NgIf } from "@angular/common";
+import { BuilderHelperService } from "../../../services/builder-helper.service";
 
 @Component({
     selector: 'app-one-of-option',
@@ -17,23 +18,13 @@ export class OneOfOptionComponent implements OnChanges {
     
     propertyType!: string;
     
-    ngOnChanges(): void {
-        // TODO: optimize ngOnChanges
-        this.propertyType = this.getTypeText(this.schema)
+    constructor(
+        private builderHelperService: BuilderHelperService,
+    ) {
     }
     
-    getTypeText(schema: any): string {
-        if (schema.enum) {
-            return `<${schema.type || 'any'} : ${schema.enum.join(' | ')}>`;
-        } else if (schema?.items?.type) {
-            return `<${schema.items?.type}[]>`;
-        } else if (schema.type === 'object') {
-            const keyType = schema.propertyNames?.pattern ? 'string' : '';
-            const valueType = schema.additionalProperties?.type;
-            return (keyType && valueType) ? `<{ [key: ${keyType}]: ${valueType} }>` : `<${schema.type}>`;
-        } else if (schema.type) {
-            return `<${schema.type}>`;
-        }
-        return '';
+    ngOnChanges(): void {
+        // TODO: optimize ngOnChanges
+        this.propertyType = this.builderHelperService.getTypeText(this.schema)
     }
 }

@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase } from "@angular/common";
 import { OneOfOptionComponent } from "../one-of-option/one-of-option.component";
+import { BuilderHelperService } from "../../../services/builder-helper.service";
 
 @Component({
     selector: 'app-builder-property',
@@ -16,42 +17,33 @@ import { OneOfOptionComponent } from "../one-of-option/one-of-option.component";
     templateUrl: './builder-property.component.html',
     styleUrl: './builder-property.component.scss'
 })
-export class BuilderPropertyComponent {
+export class BuilderPropertyComponent implements OnChanges {
     @Input() propertyKey = '';
-    @Input() schema!: any;
+    @Input() schema: any = null;
     @Input() isOption = false;
-    timeoutId: any;
     
     collapsed = true;
     highlight = false;
+    propertyType = '';
     
     objectKeys = Object.keys;
     isArray = Array.isArray;
     
-    getTypeText(schema: any): string {
-        if (schema.enum) {
-            return `<${schema.type || 'any'} : ${schema.enum.join(' | ')}>`;
-        } else if (schema?.items?.type) {
-            return `<${schema.items?.type}[]>`;
-        } else if (schema.type === 'object') {
-            const keyType = schema.propertyNames?.pattern ? 'string' : '';
-            const valueType = schema.additionalProperties?.type;
-            return (keyType && valueType) ? `<{ [key: ${keyType}]: ${valueType} }>` : `<${schema.type}>`;
-        } else if (schema.type) {
-            return `<${schema.type}>`;
-        }
-        return '';
+    private timeoutId: any;
+    
+    constructor(
+        private builderHelperService: BuilderHelperService,
+    ) {
     }
     
-    isExpandable(): boolean {
-        return this.schema.type === 'object' ||
-            (this.schema.type === 'array' && this.schema.items && this.schema.items.type === 'object') ||
-            this.schema.oneOf;
+    ngOnChanges(): void {
+        this.propertyType = this.builderHelperService.getTypeText(this.schema);
     }
     
     toggleCollapsible() {
         this.collapsed = !this.collapsed;
         this.highlight = !this.highlight;
+        
         if (this.timeoutId) {
             clearTimeout(this.timeoutId);
         }
