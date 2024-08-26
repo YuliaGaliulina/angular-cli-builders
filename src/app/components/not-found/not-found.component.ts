@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { LogoComponent } from '../logo/logo.component';
 import { MatAnchor } from '@angular/material/button';
-import { RouterLink } from "@angular/router";
 import { VersionsStore } from "../../state/versions/versions.store";
+import { GoToDocsButtonComponent } from "../go-to-docs-button/go-to-docs-button.component";
 
 @Component({
   selector: 'app-not-found',
@@ -10,7 +10,7 @@ import { VersionsStore } from "../../state/versions/versions.store";
     imports: [
         LogoComponent,
         MatAnchor,
-        RouterLink
+        GoToDocsButtonComponent
     ],
   templateUrl: './not-found.component.html',
   styleUrl: './not-found.component.scss'

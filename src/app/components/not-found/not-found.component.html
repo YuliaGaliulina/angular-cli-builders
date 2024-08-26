@@ -2,11 +2,6 @@
     <div class="not-found-page-contents">
         <app-logo class="logo"></app-logo>
         <h2>Page not found!</h2>
-        <a
-                mat-flat-button
-                [routerLink]="['/docs/', versionsStore.currentVersion()?.majorVersion || versionsStore.latestVersion()?.majorVersion]"
-                class="get-started-btn">
-            Go to documentation
-        </a>
+        <app-go-to-docs-button [title]="'Go to documentation'"></app-go-to-docs-button>
     </div>
 </div>

@@ -4,12 +4,7 @@
             <app-logo class="home-page__logo"></app-logo>
             <h1>Welcome to the unofficial Angular configuration documentation!</h1>
         </div>
-        <a
-                mat-flat-button
-                [routerLink]="['/docs/', versionsStore.currentVersion()?.majorVersion ||
-        versionsStore.latestVersion()?.majorVersion]"
-                class="home-page__get-started-btn">Get started</a>
-
+        <app-go-to-docs-button></app-go-to-docs-button>
         <h2>Understanding Builders</h2>
         <div class="card">
             <p>This documentation guides you through the various builder options available in your
@@ -60,9 +55,6 @@
     &#125;
   &#125;
         </code></pre>
-        <a
-                mat-flat-button
-                [routerLink]="['/docs/', versionsStore.currentVersion()?.majorVersion || versionsStore.latestVersion()?.majorVersion]"
-                class="home-page__get-started-btn">Get started</a>
+        <app-go-to-docs-button></app-go-to-docs-button>
     </div>
 </div>
