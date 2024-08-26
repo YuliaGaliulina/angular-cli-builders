@@ -1,6 +1,6 @@
 <a
         mat-flat-button
-        [routerLink]="['/docs/', versionsStore.currentVersion()!.majorVersion ||
-        versionsStore.latestVersion()!.majorVersion]"
+        [routerLink]="['/docs/', versionsStore.currentVersion()?.majorVersion ||
+        versionsStore.latestVersion().majorVersion]"
         class="go-to-docs-button">{{title}}
 </a>
