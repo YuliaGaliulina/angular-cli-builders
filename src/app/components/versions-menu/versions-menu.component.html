@@ -15,7 +15,7 @@
                 *ngFor="let version of versionsStore.versions()"
                 (click)="selectVersion(version)"
         >
-            v{{ version.majorVersion }}
+            {{ version.majorVersion }}
         </button>
     </mat-menu>
 </ng-container>

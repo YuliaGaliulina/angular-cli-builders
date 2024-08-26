@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { from, map, Observable, switchMap } from 'rxjs';
 import { NgVersion } from '../state/versions/ng-version';
 import { Builder } from "../state/builder-list/Builder";
-import { dereference } from "@apidevtools/json-schema-ref-parser";
+import { dereference, JSONSchema } from "@apidevtools/json-schema-ref-parser";
+import { SelectedBuilder } from "../state/selected-builder/selected-builder.store";
 
 const baseUrl = 'https://unpkg.com/@angular-devkit/build-angular@';
 
@@ -23,9 +24,9 @@ export class BuilderHttpService {
             }))
     }
     
-    getBuilder(version: string, path: string): Observable<any> {
-        const formattedPath = path.replace(/^\.\//, '');
-        return this.http.get<any>(`${baseUrl}${version}/${formattedPath}`)
+    getBuilder(version: string, builder: Builder): Observable<SelectedBuilder> {
+        const formattedPath = builder.schemaUrl.replace(/^\.\//, '');
+        return this.http.get<JSONSchema>(`${baseUrl}${version}/${formattedPath}`)
             .pipe(
                 map((schema) => {
                     if (schema.$id) {
@@ -35,6 +36,7 @@ export class BuilderHttpService {
                     return schema;
                 }),
                 switchMap((schema) => from(dereference(schema))),
+                map((schema) => ({title: builder.title, schema}))
             );
     }
 }

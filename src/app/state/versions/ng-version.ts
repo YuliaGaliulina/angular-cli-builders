@@ -1,4 +1,4 @@
 export interface NgVersion {
-    version: string,
-    majorVersion: number
+    version: string;
+    majorVersion: string;
 }

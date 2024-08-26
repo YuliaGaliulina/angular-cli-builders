@@ -4,8 +4,9 @@ import { MatMenu, MatMenuItem, MatMenuTrigger } from "@angular/material/menu";
 import { NgForOf, NgIf } from "@angular/common";
 import { MatButton } from "@angular/material/button";
 import { VersionsStore } from "../../state/versions/versions.store";
-import { BuilderListStore } from "../../state/builder-list/builder-list.store";
 import { NgVersion } from "../../state/versions/ng-version";
+import { Router } from "@angular/router";
+import { SelectedBuilderStore } from "../../state/selected-builder/selected-builder.store";
 
 @Component({
     selector: 'app-versions-menu',
@@ -24,10 +25,15 @@ import { NgVersion } from "../../state/versions/ng-version";
 })
 export class VersionsMenuComponent {
     readonly versionsStore = inject(VersionsStore);
-    readonly builderListStore = inject(BuilderListStore);
+    private selectedBuilderStore = inject(SelectedBuilderStore);
+    
+    constructor(
+        private router: Router
+    ) {
+    }
     
     selectVersion(version: NgVersion) {
-        this.versionsStore.setCurrentVersion(version);
-        this.builderListStore.fetchBuilders(version);
+        const builder = this.selectedBuilderStore.builder();
+        this.router.navigate(['/docs/', version.majorVersion, builder?.title || []]);
     }
 }

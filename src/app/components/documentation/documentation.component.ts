@@ -1,10 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ToolbarComponent } from "../toolbar/toolbar.component";
 import { SidenavComponent } from "../sidenav/sidenav.component";
-import { RouterOutlet } from "@angular/router";
+import { ActivatedRoute, RouterOutlet } from "@angular/router";
 import { VersionsStore } from "../../state/versions/versions.store";
 import { BuilderListStore } from "../../state/builder-list/builder-list.store";
+import { Subscription } from "rxjs";
 import { NgVersion } from "../../state/versions/ng-version";
+import { BuilderComponent } from "./builder/builder.component";
 
 @Component({
     selector: 'app-documentation',
@@ -12,16 +14,33 @@ import { NgVersion } from "../../state/versions/ng-version";
     imports: [
         ToolbarComponent,
         SidenavComponent,
-        RouterOutlet
+        RouterOutlet,
+        BuilderComponent
     ],
     templateUrl: './documentation.component.html',
     styleUrl: './documentation.component.scss'
 })
-export class DocumentationComponent implements OnInit {
-    readonly versionsStore = inject(VersionsStore);
-    readonly builderListStore = inject(BuilderListStore);
+export class DocumentationComponent implements OnInit, OnDestroy {
+    private readonly versionsStore = inject(VersionsStore);
+    private readonly builderListStore = inject(BuilderListStore);
+    private subscription$ = new Subscription();
+    
+    constructor(
+        private route: ActivatedRoute,
+    ) {
+    }
     
     ngOnInit() {
-        this.builderListStore.fetchBuilders(this.versionsStore.currentVersion() as NgVersion);
+        this.subscription$.add(
+            this.route.params
+                .subscribe((params) => {
+                    this.versionsStore.setCurrentVersion(params.version);
+                    this.builderListStore.fetchBuilders(this.versionsStore.currentVersion() as NgVersion);
+                })
+        );
+    }
+    
+    ngOnDestroy(): void {
+        this.subscription$.unsubscribe();
     }
 }

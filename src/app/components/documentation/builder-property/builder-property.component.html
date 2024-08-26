@@ -23,20 +23,19 @@
 
     <div *ngIf="schema.type === 'array' && schema.items.type === 'object'" class="builder-property-children">
         <app-builder-property
-                *ngFor="let key of objectKeys(schema.items.properties)"
-                [propertyKey]="key"
-                [schema]="schema.items.properties?.[key]">
+                *ngFor="let item of schema.items.properties | schemaProperties"
+                [propertyKey]="item.key"
+                [schema]="item.value">
         </app-builder-property>
     </div>
 
 
     <div *ngIf="schema.type === 'object' && schema.properties" class="builder-property-children">
         <app-builder-property
-                *ngFor="let key of objectKeys(schema.properties)"
-                [propertyKey]="key"
-                [schema]="schema.properties[key]">
+                *ngFor="let item of schema.properties | schemaProperties"
+                [propertyKey]="item.key"
+                [schema]="item.value">
         </app-builder-property>
-
     </div>
 
     <div *ngIf="schema.oneOf" class="builder-property-children">

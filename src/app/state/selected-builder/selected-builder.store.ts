@@ -4,9 +4,16 @@ import { BuilderHttpService } from '../../services/builder-http.service';
 import { finalize, pipe, switchMap, tap } from 'rxjs';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { NgVersion } from '../versions/ng-version';
+import { Builder } from "../builder-list/Builder";
+import { JSONSchema } from "@apidevtools/json-schema-ref-parser";
+
+export interface SelectedBuilder {
+    title: string;
+    schema: JSONSchema;
+}
 
 type SelectedBuilderState = {
-    selectedBuilder: any;
+    selectedBuilder: SelectedBuilder | null;
     isLoading: boolean;
     error: boolean;
 }
@@ -21,10 +28,10 @@ export const SelectedBuilderStore = signalStore(
     { providedIn: 'root' },
     withState<SelectedBuilderState>(initialState),
     withMethods((store, ngCliHttpService = inject(BuilderHttpService)) => ({
-        fetchBuilder: rxMethod<{ path: string, version: NgVersion }>(
+        fetchBuilder: rxMethod<{ builder: Builder, version: NgVersion }>(
             pipe(
                 tap(() => patchState(store, { isLoading: true })),
-                switchMap(({ path, version }) => ngCliHttpService.getBuilder(version.version, path)),
+                switchMap(({ builder, version }) => ngCliHttpService.getBuilder(version.version, builder)),
                 tap((builder) => {
                     patchState(store, { selectedBuilder: builder, isLoading: false });
                 }),

@@ -4,31 +4,110 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
   width: 100%;
 }
 
-.home-page-container {
-  @extend .flexbox-centered;
-  text-align: center;
-  background-color: $pale-blue;
+li {
+  list-style: none;
+  position: relative;
+  padding: 10px 0;
+
+  mat-icon {
+    position: absolute;
+    top: 10px;
+    left: -35px;
+    color: #3f51b5;
+  }
+
+  strong {
+    color: #3f51b5;
+    width: 110px;
+    display: inline-block;
+  }
 }
 
-.get-started-btn {
-  font-size: 20px;
-  margin: 20px;
-  height: 50px;
-  border-radius: 10px;
-}
-
-.logo {
-  width: 250px;
-  height: 250px;
-  margin: 20px;
-}
-
-.home-page-contents {
-  @extend .flexbox-centered;
-  max-width: 1000px;
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
   flex-direction: column;
+}
+
+.home-page {
+  &__container {
+    max-width: 800px;
+    @extend .flexbox-centered;
+    flex-direction: column;
+  }
+
+  &__contents {
+    @extend .flexbox-centered;
+
+    h1 {
+      color: #3f51b5;
+      text-align: center;
+    }
+  }
+
+  &__logo {
+    width: 500px;
+    height: 500px;
+    min-width: 500px;
+    min-height: 500px;
+    position: absolute;
+    right: 8%;
+    top: 0;
+    opacity: 0.1;
+  }
+
+  &__get-started-btn {
+    font-size: 22px;
+    margin: 40px 20px 20px;
+    padding: 10px 40px;
+    height: 50px;
+    border-radius: 10px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: $pale-blue;
+
+    h1, h2 {
+      color: #3f51b5;
+      margin-top: 1.5em;
+    }
+
+    .file-name {
+      padding: 2px 4px;
+      border-radius: 4px;
+      background-color: $prop-background;
+      color: $orange;
+      font-weight: 600;
+    }
+
+    .code-block {
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background-color: #ba1a1a0a;
+      padding: 15px;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+
+    ul, ol {
+      padding-left: 20px;
+    }
+  }
 }
