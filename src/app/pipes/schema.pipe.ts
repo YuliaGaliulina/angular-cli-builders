@@ -1,8 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { JSONSchema7Definition, JSONSchema4, JSONSchema6Definition } from 'json-schema';
+import { JSONSchema7Definition } from 'json-schema';
 
 type SchemaProperties =
-    { [key: string]: JSONSchema7Definition; } | { [k: string]: JSONSchema6Definition; } | { [k: string]: JSONSchema4; } | undefined
+    { [key: string]: JSONSchema7Definition; } | undefined
 
 @Pipe({
     standalone: true,

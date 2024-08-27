@@ -1,8 +1,7 @@
 @import './variables';
 
-.toolbar,
-.sidenav {
-  background: #d7e3ff40;;
+.toolbar {
+  background: #d7e3ff40;
 }
 
 .sidenav-container {
@@ -13,6 +12,7 @@
   border-radius: initial;
   height: 100%;
   overflow: hidden;
+  box-shadow: 3px 0 6px -2px rgba(0, 0, 0, 0.1);
 }
 
 .sidenav {

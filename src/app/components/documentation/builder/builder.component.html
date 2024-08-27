@@ -10,7 +10,9 @@
         <app-builder-property
                 *ngFor="let item of schema.properties | schemaProperties"
                 [propertyKey]="item.key"
-                [schema]="item.value">
+                [schema]="item.value"
+                [requiredArray]="schema?.required"
+        >
         </app-builder-property>
     </div>
 </div>

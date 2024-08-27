@@ -3,7 +3,7 @@ import { SelectedBuilderStore } from "../../../state/selected-builder/selected-b
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { KeyValuePipe, NgForOf, NgIf, NgTemplateOutlet } from "@angular/common";
 import { BuilderPropertyComponent } from "../builder-property/builder-property.component";
-import { SchemaPropertiesPipe } from "../../schema.pipe";
+import { SchemaPropertiesPipe } from "../../../pipes/schema.pipe";
 import { VersionsStore } from "../../../state/versions/versions.store";
 import { BuilderListStore } from "../../../state/builder-list/builder-list.store";
 import { distinctUntilChanged, filter, map, Observable, Subscription, switchMap, tap } from "rxjs";

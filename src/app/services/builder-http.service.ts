@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { from, map, Observable, switchMap } from 'rxjs';
 import { NgVersion } from '../state/versions/ng-version';
 import { Builder } from "../state/builder-list/Builder";
-import { dereference, JSONSchema } from "@apidevtools/json-schema-ref-parser";
+import { dereference } from "@apidevtools/json-schema-ref-parser";
 import { SelectedBuilder } from "../state/selected-builder/selected-builder.store";
+import { JSONSchema7 } from 'json-schema';
 
 const ANGULAR_DEVKIT_BUILD = 'https://unpkg.com/@angular-devkit/build-angular@';
 const ANGULAR_BUILD = 'https://unpkg.com/@angular/build@';
@@ -24,7 +25,7 @@ export class BuilderHttpService {
                 const builders = resp.builders;
                 
                 return Object.keys(builders).map(key => {
-                    let schemaPath = '';
+                    let schemaPath: string;
                     
                     if (cliVersion > 17 && key === 'application') {
                         schemaPath = `${ANGULAR_BUILD}ngVersion/src/builders/application/schema.json`;
@@ -40,7 +41,7 @@ export class BuilderHttpService {
     
     getBuilder(version: string, builder: Builder): Observable<SelectedBuilder> {
         const schemaPath = builder.schemaUrl.replace('ngVersion', version);
-        return this.http.get<JSONSchema>(schemaPath)
+        return this.http.get<JSONSchema7>(schemaPath)
             .pipe(
                 map((schema) => {
                     if (schema.$id) {
@@ -50,7 +51,7 @@ export class BuilderHttpService {
                     return schema;
                 }),
                 switchMap((schema) => from(dereference(schema))),
-                map((schema) => ({ title: builder.title, schema }))
+                map((schema) => ({ title: builder.title, schema: schema as JSONSchema7 }))
             );
     }
 }

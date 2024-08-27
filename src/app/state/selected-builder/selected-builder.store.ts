@@ -5,11 +5,11 @@ import { finalize, pipe, switchMap, tap } from 'rxjs';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { NgVersion } from '../versions/ng-version';
 import { Builder } from "../builder-list/Builder";
-import { JSONSchema } from "@apidevtools/json-schema-ref-parser";
+import { JSONSchema7 } from 'json-schema';
 
 export interface SelectedBuilder {
     title: string;
-    schema: JSONSchema;
+    schema: JSONSchema7;
 }
 
 type SelectedBuilderState = {
