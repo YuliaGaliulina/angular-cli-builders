@@ -64,8 +64,16 @@
 .sidenav-container {
   height: calc(100vh - 90px);
 
+  @supports (height: 100dvh) {
+    height: calc(100dvh - 90px);
+  }
+
   @media screen and (min-width: 768px) {
     height: calc(100vh - 60px);
+
+    @supports (height: 100dvh) {
+      height: calc(100dvh - 60px);
+    }
   }
 }
 
@@ -79,6 +87,10 @@
 .sidenav {
   width: 250px;
   padding: 16px;
+}
+
+mat-sidenav-content {
+  max-width: 100%;
 }
 
 .markdown-wrap {

@@ -36,6 +36,7 @@ p {
 
 .home-page {
   &__container {
+    font-size: 20px;
     max-width: 750px;
     @extend .flexbox-centered;
     flex-direction: column;
