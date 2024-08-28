@@ -1,3 +1,5 @@
+@import './variables';
+
 .one-of-option-type {
   color: #6a737d;
   margin: 5px 0;
@@ -12,17 +14,20 @@
   justify-content: center;
   width: fit-content;
   margin-left: 35px;
+  margin-bottom: 15px;
+  flex-direction: column;
 }
 
 .one-of-option-title {
+  color: $orange;
   width: 100%;
   font-weight: 500;
   white-space: nowrap;
-  margin-right: 12px;
 }
 
 .one-of-option {
   position: relative;
-  border-left: 3px solid #dc4a3063;
+  border-left: 3px solid rgba(220, 74, 48, 0.3882352941);
   margin-bottom: 20px;
+  padding-left: 15px;
 }

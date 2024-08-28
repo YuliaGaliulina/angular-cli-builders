@@ -16,8 +16,8 @@ export class FormatTextPipe implements PipeTransform {
         
         value = value.replace(/"([^"]+)"/g, '<span class="property-option">$1</span>');
         value = value.replace(/`([^`]+)`/g, '<span class="property-option">$1</span>');
-        value = value.replace(/'([^']+)'/g, '<span class="property-option">$1</span>');
-        value = value.replace(/(https?:\/\/[^\s]+)/g, (match) => {
+        value = value.replace(/(?<!\w)'([^']+)'(?!\w)/g, '<span class="property-option">$1</span>');
+        value = value.replace(/(https?:\/\/\S+)/g, (match) => {
             const url = new URL(match);
             const hashFragment = url.hash ? url.hash.slice(1).replace(/-/g, ' ') : null;
             const formattedText = hashFragment ? hashFragment : url.hostname;

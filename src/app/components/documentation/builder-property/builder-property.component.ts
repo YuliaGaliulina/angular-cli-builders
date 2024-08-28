@@ -1,5 +1,13 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { JsonPipe, KeyValuePipe, NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase } from "@angular/common";
+import {
+    JsonPipe,
+    KeyValuePipe,
+    NgClass,
+    NgForOf,
+    NgIf,
+    NgSwitch,
+    NgSwitchCase,
+} from "@angular/common";
 import { OneOfOptionComponent } from "../one-of-option/one-of-option.component";
 import { BuilderHelperService } from "../../../services/builder-helper.service";
 import { SchemaPropertiesPipe } from "../../../pipes/schema.pipe";
@@ -48,6 +56,11 @@ export class BuilderPropertyComponent implements OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.schema.currentValue !== changes.schema.previousValue) {
             this.propertyType = this.builderHelperService.getTypeText(this.schema);
+        }
+        
+        if (changes.requiredArray.currentValue !== changes.requiredArray.previousValue &&
+            changes.propertyKey.currentValue !== changes.propertyKey.previousValue)
+        {
             this.isRequired = this.requiredArray?.indexOf(this.propertyKey) !== -1;
         }
     }

@@ -3,10 +3,10 @@ import { MatIcon } from "@angular/material/icon";
 import { MatMenu, MatMenuItem, MatMenuTrigger } from "@angular/material/menu";
 import { NgForOf, NgIf } from "@angular/common";
 import { MatButton } from "@angular/material/button";
-import { VersionsStore } from "../../state/versions/versions.store";
-import { NgVersion } from "../../state/versions/ng-version";
+import { VersionsStore } from "../../../state/versions/versions.store";
+import { NgVersion } from "../../../state/versions/ng-version";
 import { Router } from "@angular/router";
-import { SelectedBuilderStore } from "../../state/selected-builder/selected-builder.store";
+import { SelectedBuilderStore } from "../../../state/selected-builder/selected-builder.store";
 
 @Component({
     selector: 'app-versions-menu',

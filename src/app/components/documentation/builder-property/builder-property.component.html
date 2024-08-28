@@ -1,4 +1,4 @@
-<div class="builder-property-section">
+<div *ngIf="propertyKey || schema.description" class="builder-property-section">
     <div *ngIf="propertyKey" class="builder-property-wrapper">
         <!--   TODO: move condition into separate method    -->
         <button
@@ -10,14 +10,16 @@
         </button>
         <strong class="builder-property-title" [innerHTML]="propertyKey | camelCaseWrap"></strong>
         <span class="builder-property-type">{{ propertyType }}</span>
-        <div class="required-block">
+        <div class="badge-block">
             <strong *ngIf="isRequired" class="property-badge required">Required</strong>
             <strong *ngIf="schema['x-deprecated']" class="property-badge deprecated">Deprecated</strong>
         </div>
     </div>
     <div class="builder-property-description">
         <p *ngIf="schema.description" [innerHTML]="schema.description | formatText"></p>
-        <p *ngIf="schema.enum">Possible values: {{ schema.enum.join(' | ') }}.</p>
+        <p *ngIf="schema.enum">Available options: {{ schema.enum.join(' | ') }}.</p>
+        <p *ngIf="schema.pattern">Expected format: {{ schema.pattern }}.</p>
+        <p *ngIf="schema?.items?.pattern">Expected format: {{ schema?.items?.pattern }}.</p>
         <p *ngIf="schema.default | json">Default value: {{ schema.default | json }}.</p>
         <p *ngIf="schema['x-deprecated']">
             <span>Note: </span>
@@ -26,14 +28,12 @@
     </div>
 </div>
 
-<div
-        [ngClass]="{visible: !collapsed, highlight: highlight,
-'builder-property-collapsible': !isOption}">
+<div [ngClass]="{visible: !collapsed, highlight: highlight, 'builder-property-collapsible': !isOption}">
     <div *ngIf="isArray(schema.items)" class="builder-property-children">
         <div *ngFor="let item of schema.items">
             <app-builder-property
                     [schema]="item"
-                    [requiredArray]="schema?.required"
+                    [requiredArray]="schema.items?.required"
             >
             </app-builder-property>
         </div>
@@ -44,11 +44,10 @@
                 *ngFor="let item of schema.items.properties | schemaProperties"
                 [propertyKey]="item.key"
                 [schema]="item.value"
-                [requiredArray]="schema?.required"
+                [requiredArray]="schema.items?.required"
         >
         </app-builder-property>
     </div>
-
 
     <div *ngIf="schema.type === 'object' && schema.properties" class="builder-property-children">
         <app-builder-property
@@ -81,7 +80,7 @@
                 <app-builder-property
                         [isOption]="true"
                         [schema]="item"
-                        [requiredArray]="schema?.required"
+                        [requiredArray]="schema?.items?.required"
                 >
                 </app-builder-property>
             </app-one-of-option>

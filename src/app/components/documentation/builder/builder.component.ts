@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { SelectedBuilderStore } from "../../../state/selected-builder/selected-builder.store";
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { KeyValuePipe, NgForOf, NgIf, NgTemplateOutlet } from "@angular/common";
@@ -9,7 +9,7 @@ import { BuilderListStore } from "../../../state/builder-list/builder-list.store
 import { distinctUntilChanged, filter, map, Observable, Subscription, switchMap, tap } from "rxjs";
 import { Builder } from "../../../state/builder-list/Builder";
 import { toObservable } from "@angular/core/rxjs-interop";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { NgVersion } from "../../../state/versions/ng-version";
 
 @Component({
@@ -28,6 +28,8 @@ import { NgVersion } from "../../../state/versions/ng-version";
     styleUrl: './builder.component.scss',
 })
 export class BuilderComponent implements OnInit, OnDestroy {
+    @ViewChild('scrollContainer') topElement!: ElementRef;
+    
     readonly selectedBuilderStore = inject(SelectedBuilderStore);
     private readonly versionsStore = inject(VersionsStore);
     private readonly builderListStore = inject(BuilderListStore);
@@ -36,7 +38,7 @@ export class BuilderComponent implements OnInit, OnDestroy {
     
     constructor(
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
     ) {
     }
     
@@ -57,6 +59,7 @@ export class BuilderComponent implements OnInit, OnDestroy {
                     tap((builder) => {
                         if (builder === null) {
                             // TODO: output user friendly message
+                            this.selectedBuilderStore.setSelectedBuilder(null);
                             this.router.navigate(['not-found']);
                         }
                     }),
@@ -69,6 +72,15 @@ export class BuilderComponent implements OnInit, OnDestroy {
                     });
                 })
         )
+        
+        this.subscription$.add(
+            this.router.events
+                .pipe(
+                    filter((event) => event instanceof NavigationEnd && !!this.topElement)
+                ).subscribe(() => {
+                this.topElement.nativeElement.scrollIntoView(true);
+            })
+        );
     }
     
     ngOnDestroy(): void {

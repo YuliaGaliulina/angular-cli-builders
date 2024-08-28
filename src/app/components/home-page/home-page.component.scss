@@ -27,12 +27,16 @@ li {
 }
 
 p {
-  text-align: center;
+  width: 100%;
+
+  @media screen and (min-width: 768px) {
+    text-align: center;
+  }
 }
 
 .home-page {
   &__container {
-    max-width: 800px;
+    max-width: 750px;
     @extend .flexbox-centered;
     flex-direction: column;
   }
@@ -47,10 +51,10 @@ p {
   }
 
   &__logo {
-    width: 500px;
-    height: 500px;
-    min-width: 500px;
-    min-height: 500px;
+    width: 400px;
+    height: 400px;
+    min-width: 400px;
+    min-height: 400px;
     position: absolute;
     right: 8%;
     top: 0;
@@ -72,6 +76,16 @@ p {
       margin-top: 1.5em;
     }
 
+    h1 {
+      font-size: 40px;
+      overflow: hidden;
+      word-wrap: break-word;
+    }
+
+    h2 {
+      font-size: 30px;
+    }
+
     .file-name {
       padding: 2px 4px;
       border-radius: 4px;
@@ -91,6 +105,7 @@ p {
       border-radius: 4px;
       overflow-x: auto;
       border: 1px solid #ddd;
+      width: 100%;
     }
 
     ul, ol {

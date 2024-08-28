@@ -3,7 +3,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DocumentationComponent } from './components/documentation/documentation.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { BuilderComponent } from "./components/documentation/builder/builder.component";
-import { DocsIntroductionComponent } from "./components/guide/docs-introduction.component";
+import { DocsIntroductionComponent } from "./components/documentation/guide/docs-introduction.component";
 
 export const routes: Routes = [
     { path: '', pathMatch: 'full', component: HomePageComponent },

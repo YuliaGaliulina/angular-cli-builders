@@ -14,7 +14,7 @@ export class BuilderHelperService {
         } else if (schema.type === 'object') {
             const keyType = schema.propertyNames?.pattern ? 'string' : '';
             const valueType = schema.additionalProperties?.type;
-            return (keyType && valueType) ? `<{ [key: ${keyType}]: ${valueType} }>` : `<${schema.type}>`;
+            return (keyType && valueType) ? `<{[key: ${keyType}]: ${valueType}}>` : `<${schema.type}>`;
         } else if (schema.type) {
             return Object.hasOwn(schema, 'const')? `<${schema.type}: ${schema.const}>` : `<${schema.type}>`;
         }

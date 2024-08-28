@@ -1,2 +1,45 @@
-<app-toolbar></app-toolbar>
-<app-sidenav></app-sidenav>
+<div class="toolbar">
+    <div class="toolbar-column">
+        <button mat-icon-button (click)="toggleSidenav()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <a class="logo-wrap" [routerLink]="['/']">
+            <app-logo class="logo"></app-logo>
+            <div>
+                <span class="logo-title">Angular CLI Builders</span>
+            </div>
+        </a>
+    </div>
+    <div class="toolbar-column toolbar-column-right">
+        <app-versions-menu></app-versions-menu>
+        <button mat-button class="mat-primary">GitHub</button>
+    </div>
+</div>
+
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav [mode]="isSmallScreen ? 'over' : 'side'" [opened]="!isSmallScreen" class="sidenav">
+        <mat-nav-list class="nav-list">
+            <ng-container *ngIf="builderListStore.builders().length > 0 && !builderListStore.loading()">
+                <div class="nav-item" *ngFor="let builder of builderListStore.builders()">
+                    <a
+                            [routerLink]="['/docs/', versionsStore.currentVersion()!.majorVersion, builder.title]"
+                            routerLinkActive="active"
+                            mat-list-item
+                            (click)="closeSidenavIfMobile()">
+                        {{ builder.title }}
+                    </a>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="builderListStore.loading()">
+                <div class="nav-item" *ngFor="let item of placeholderArray">
+                    <a mat-list-item>
+                        <p class="placeholder"></p>
+                    </a>
+                </div>
+            </ng-container>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

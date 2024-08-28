@@ -4,6 +4,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .property-option {
   background-color: #d7e3ff5e;
   color: #9B2C2C;
+  word-break: break-word;
 }
 
 .docs-link {
@@ -14,4 +15,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   &:hover {
     text-decoration: underline;
   }
+}
+
+h1, h2 {
+  line-height: 1.5 !important;
 }

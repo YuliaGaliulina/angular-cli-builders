@@ -41,6 +41,9 @@ export const SelectedBuilderStore = signalStore(
                 })
             )
         ),
+        setSelectedBuilder(builder: SelectedBuilder | null) {
+            patchState(store, { selectedBuilder: builder });
+        }
     })),
     withComputed(({ isLoading, selectedBuilder }) => ({
         loading: computed(() => isLoading()),

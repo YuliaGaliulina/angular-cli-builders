@@ -1,28 +1,55 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { ToolbarComponent } from "../toolbar/toolbar.component";
-import { SidenavComponent } from "../sidenav/sidenav.component";
-import { ActivatedRoute, RouterOutlet } from "@angular/router";
+import { Component, HostListener, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+    ActivatedRoute,
+    RouterLink,
+    RouterLinkActive,
+    RouterOutlet
+} from "@angular/router";
 import { VersionsStore } from "../../state/versions/versions.store";
 import { BuilderListStore } from "../../state/builder-list/builder-list.store";
 import { Subscription } from "rxjs";
 import { NgVersion } from "../../state/versions/ng-version";
 import { BuilderComponent } from "./builder/builder.component";
+import { LogoComponent } from "../logo/logo.component";
+import { MatButton, MatIconButton } from "@angular/material/button";
+import { VersionsMenuComponent } from "./versions-menu/versions-menu.component";
+import { MatListItem, MatNavList } from "@angular/material/list";
+import { MatSidenav, MatSidenavContainer, MatSidenavContent } from "@angular/material/sidenav";
+import { NgForOf, NgIf } from "@angular/common";
+import { MatIcon } from "@angular/material/icon";
 
 @Component({
     selector: 'app-documentation',
     standalone: true,
     imports: [
-        ToolbarComponent,
-        SidenavComponent,
         RouterOutlet,
-        BuilderComponent
+        BuilderComponent,
+        LogoComponent,
+        MatButton,
+        VersionsMenuComponent,
+        RouterLink,
+        MatListItem,
+        MatNavList,
+        MatSidenav,
+        MatSidenavContainer,
+        MatSidenavContent,
+        NgForOf,
+        NgIf,
+        RouterLinkActive,
+        MatIconButton,
+        MatIcon
     ],
     templateUrl: './documentation.component.html',
     styleUrl: './documentation.component.scss'
 })
 export class DocumentationComponent implements OnInit, OnDestroy {
-    private readonly versionsStore = inject(VersionsStore);
-    private readonly builderListStore = inject(BuilderListStore);
+    @ViewChild('sidenav') sidenav!: MatSidenav;
+    
+    placeholderArray = Array(10).fill(0);
+    isSmallScreen = window.innerWidth < 768;
+    
+    readonly versionsStore = inject(VersionsStore);
+    readonly builderListStore = inject(BuilderListStore);
     private subscription$ = new Subscription();
     
     constructor(
@@ -42,5 +69,20 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     
     ngOnDestroy(): void {
         this.subscription$.unsubscribe();
+    }
+    
+    @HostListener('window:resize', ['$event'])
+    onResize() {
+        this.isSmallScreen = window.innerWidth < 768;
+    }
+    
+    toggleSidenav() {
+        this.sidenav.toggle();
+    }
+    
+    closeSidenavIfMobile() {
+        if (this.isSmallScreen) {
+            this.sidenav.close();
+        }
     }
 }

@@ -3,6 +3,10 @@
 .builder-property-section {
   display: flex;
   margin-bottom: 35px;
+
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+  }
 }
 
 .toggle-button {
@@ -32,6 +36,7 @@
   background-color: transparent;
   max-height: max-content;
   transition: background-color 0.3s ease;
+  margin-bottom: 35px;
 }
 
 .builder-property-collapsible.highlight {
@@ -40,21 +45,30 @@
 }
 
 .builder-property-children {
-  padding-left: 35px;
+  padding-left: 25px;
 }
 
 .builder-property-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 170px;
-  min-width: 170px;
   position: relative;
+
+  @media screen and (min-width: 768px) {
+    width: 185px;
+    min-width: 185px;
+  }
 }
 
 .builder-property-description {
   width: 100%;
-  margin-left: 50px;
+  margin-top: 15px;
+  overflow: hidden;
+
+  @media screen and (min-width: 768px) {
+    margin-left: 50px;
+    margin-top: 0;
+  }
 }
 
 .builder-property-title {
@@ -64,6 +78,7 @@
   color: $orange;
   text-align: center;
   width: calc(100% - 20px);
+  min-width: calc(100% - 20px);
   padding: 3px 10px;
 }
 
@@ -74,10 +89,9 @@
   text-align: center;
 }
 
-.required-block {
+.badge-block {
   width: 90px;
   min-width: 90px;
-  height: 25px;
   margin: 0 10px;
 
   .property-badge {
