@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-config-docs": {
+    "angular-cli-builders": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
               "util",
               "process"
             ],
-            "outputPath": "dist/angular-config-docs",
+            "outputPath": "dist/angular-cli-builders",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -77,10 +77,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angular-config-docs:build:production"
+              "buildTarget": "angular-cli-builders:build:production"
             },
             "development": {
-              "buildTarget": "angular-config-docs:build:development"
+              "buildTarget": "angular-cli-builders:build:development"
             }
           },
           "defaultConfiguration": "development"
