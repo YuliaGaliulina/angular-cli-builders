@@ -63,7 +63,8 @@
                   "maximumError": "4kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "baseHref": "/angular-cli-builders/"
             },
             "development": {
               "optimization": false,
