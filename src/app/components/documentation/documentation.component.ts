@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
     ActivatedRoute,
     RouterLink,
@@ -40,7 +40,8 @@ import { MatIcon } from "@angular/material/icon";
         MatIcon
     ],
     templateUrl: './documentation.component.html',
-    styleUrl: './documentation.component.scss'
+    styleUrl: './documentation.component.scss',
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class DocumentationComponent implements OnInit, OnDestroy {
     @ViewChild('sidenav') sidenav!: MatSidenav;
