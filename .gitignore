@@ -13,15 +13,16 @@
 Thumbs.db
 
 # Compiled output
-/dist
+/frontend/dist
 /tmp
 /out-tsc
 /bazel-out
 
 # Node
-/node_modules
 /npm-debug.log
 /yarn-error.log
+/frontend/node_modules
+/backend/node_modules
 
 # Visual Studio Code
 /.vscode/*
@@ -35,4 +36,4 @@ Thumbs.db
 /libpeerconnection.log
 testem.log
 /typings
-.editorconfig
+frontend/.editorconfig
