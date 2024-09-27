@@ -1,22 +1,19 @@
-<ng-container *ngIf="versionsStore.versions().length">
-    <button mat-button [matMenuTriggerFor]="menu">
-        <mat-icon
-                role="img"
-                class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color"
-                aria-hidden="true"
-                data-mat-icon-type="font">
-            arrow_drop_down
-        </mat-icon>
-        <span>{{ versionsStore.currentVersion()!.version }}</span>
+<button mat-button [matMenuTriggerFor]="menu">
+    <mat-icon
+            role="img"
+            class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color"
+            aria-hidden="true"
+            data-mat-icon-type="font">
+        arrow_drop_down
+    </mat-icon>
+    <span>{{ currentVersion }}</span>
+</button>
+<mat-menu #menu="matMenu">
+    <button
+            mat-menu-item
+            *ngFor="let version of versions"
+            (click)="selectVersion(version)"
+    >
+        {{ version.majorVersion }}
     </button>
-    <mat-menu #menu="matMenu">
-        <button
-                mat-menu-item
-                *ngFor="let version of versionsStore.versions()"
-                (click)="selectVersion(version)"
-        >
-            {{ version.majorVersion }}
-        </button>
-    </mat-menu>
-</ng-container>
-
+</mat-menu>

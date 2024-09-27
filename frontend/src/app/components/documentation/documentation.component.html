@@ -22,21 +22,13 @@
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #sidenav [mode]="isSmallScreen ? 'over' : 'side'" [opened]="!isSmallScreen" class="sidenav">
         <mat-nav-list class="nav-list">
-            <ng-container *ngIf="builderListStore.builders().length > 0 && !builderListStore.loading()">
-                <div class="nav-item" *ngFor="let builder of builderListStore.builders()">
+            <ng-container *ngIf="builders.length > 0">
+                <div class="nav-item" *ngFor="let builder of builders">
                     <a
-                            [routerLink]="['/docs/', versionsStore.currentVersion()!.majorVersion, builder.title]"
                             routerLinkActive="active"
                             mat-list-item
-                            (click)="closeSidenavIfMobile()">
+                            (click)="selectBuilder(builder.title)">
                         {{ builder.title }}
-                    </a>
-                </div>
-            </ng-container>
-            <ng-container *ngIf="builderListStore.loading()">
-                <div class="nav-item" *ngFor="let item of placeholderArray">
-                    <a mat-list-item>
-                        <p class="placeholder"></p>
                     </a>
                 </div>
             </ng-container>

@@ -12,32 +12,42 @@ router.get('/:version', async (req, res) => {
 
     try {
         const response = await get(`${ANGULAR_DEVKIT_BUILD}${version}/builders.json`);
-        const builders = Object.keys(response.data.builders).map(key => ({ title: key }))
+        const buildersResponse = response.data.builders;
+        const builders = Object.keys(buildersResponse).map(key => {
+            const majorVersion = version.split('.')[0];
+            const schemaUrl = majorVersion > 17 && key === 'application' ? `/src/builders/application/schema.json` : buildersResponse[key].schema;
+
+            return { title: key, schemaUrl }
+        });
         return res.json(builders);
     } catch (error) {
-        console.error("Error in /schema route:", error);
-        return res.status(500).json({
-            message: 'Internal Server Error',
+        console.error("Error in /schema route:", error.response);
+        return res.status(error.status).json({
+            message: error.response.data,
             error: error.message
         });
     }
 });
 
 router.get('/:version/:builder', async (req, res) => {
+    let schemaUrl = decodeURIComponent(req.query.schemaUrl);
+    if (schemaUrl.startsWith('./')) {
+        schemaUrl = schemaUrl.replace('./', '');
+    }
     const builder = req.params.builder;
     const version = req.params.version;
     const majorVersion = version.split('.')[0];
     const basePath = majorVersion > 17 && builder === 'application' ? ANGULAR_BUILD : ANGULAR_DEVKIT_BUILD;
-    const schemaPath = `${basePath}${version}/src/builders/${builder}/schema.json`;
+    const schemaPath = `${basePath}${version}/${schemaUrl}`;
 
     try {
         const response = await get(schemaPath);
         const schema = await dereference(response.data);
         return res.json(schema);
     } catch (error) {
-        console.error("Error in /schema route:", error);
-        return res.status(500).json({
-            message: 'Internal Server Error',
+        console.error("Error in /schema route:", error.response);
+        return res.status(error.status).json({
+            message: error.response.data,
             error: error.message
         });
     }

@@ -1,12 +1,13 @@
-import { Component, inject } from '@angular/core';
-import { MatIcon } from "@angular/material/icon";
-import { MatMenu, MatMenuItem, MatMenuTrigger } from "@angular/material/menu";
-import { NgForOf, NgIf } from "@angular/common";
-import { MatButton } from "@angular/material/button";
-import { VersionsStore } from "../../../state/versions/versions.store";
-import { NgVersion } from "../../../state/versions/ng-version";
-import { Router } from "@angular/router";
-import { SelectedBuilderStore } from "../../../state/selected-builder/selected-builder.store";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { NgForOf, NgIf } from '@angular/common';
+import { MatButton } from '@angular/material/button';
+import { NgVersion } from '../../../models/ng-version';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { VERSIONS_MAPPED } from '../../../angular-versions';
+import { Builder } from '../../../models/Builder';
 
 @Component({
     selector: 'app-versions-menu',
@@ -23,17 +24,50 @@ import { SelectedBuilderStore } from "../../../state/selected-builder/selected-b
     templateUrl: './versions-menu.component.html',
     styleUrl: './versions-menu.component.scss'
 })
-export class VersionsMenuComponent {
-    readonly versionsStore = inject(VersionsStore);
-    private selectedBuilderStore = inject(SelectedBuilderStore);
+export class VersionsMenuComponent implements OnInit, OnDestroy {
+    versions = VERSIONS_MAPPED;
+    currentVersion!: string;
+    builders: Builder[] = [];
+    
+    private subscription$ = new Subscription();
     
     constructor(
+        private route: ActivatedRoute,
         private router: Router
     ) {
     }
     
+    ngOnInit() {
+        this.subscription$.add(
+            this.route.paramMap.subscribe(paramMap => {
+                const versionParam = paramMap.get('version');
+                if (versionParam) {
+                    this.currentVersion = VERSIONS_MAPPED.find(version => version.majorVersion === versionParam)!.version;
+                }
+            })
+        );
+        
+        this.subscription$.add(
+            this.route.data.subscribe((data) => {
+                this.builders = data.builders;
+            })
+        );
+    }
+    
+    ngOnDestroy(): void {
+        this.subscription$.unsubscribe();
+    }
+    
     selectVersion(version: NgVersion) {
-        const builder = this.selectedBuilderStore.builder();
-        this.router.navigate(['/docs/', version.majorVersion, builder?.title || []]);
+        const versionParam = version.majorVersion;
+        const builderParam = this.route.firstChild?.snapshot.paramMap.get('builder');
+        
+        const navigationPath = ['../', versionParam];
+        
+        if (builderParam) {
+            navigationPath.push(builderParam);
+        }
+        
+        this.router.navigate(navigationPath, { relativeTo: this.route });
     }
 }

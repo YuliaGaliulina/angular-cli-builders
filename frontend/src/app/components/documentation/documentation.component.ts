@@ -1,22 +1,20 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
-    ActivatedRoute,
+    ActivatedRoute, Router,
     RouterLink,
     RouterLinkActive,
     RouterOutlet
-} from "@angular/router";
-import { VersionsStore } from "../../state/versions/versions.store";
-import { BuilderListStore } from "../../state/builder-list/builder-list.store";
-import { Subscription } from "rxjs";
-import { NgVersion } from "../../state/versions/ng-version";
-import { BuilderComponent } from "./builder/builder.component";
-import { LogoComponent } from "../logo/logo.component";
-import { MatButton, MatIconButton } from "@angular/material/button";
-import { VersionsMenuComponent } from "./versions-menu/versions-menu.component";
-import { MatListItem, MatNavList } from "@angular/material/list";
-import { MatSidenav, MatSidenavContainer, MatSidenavContent } from "@angular/material/sidenav";
-import { NgForOf, NgIf } from "@angular/common";
-import { MatIcon } from "@angular/material/icon";
+} from '@angular/router';
+import { filter, Subscription } from 'rxjs';
+import { BuilderComponent } from './builder/builder.component';
+import { LogoComponent } from '../logo/logo.component';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { VersionsMenuComponent } from './versions-menu/versions-menu.component';
+import { MatListItem, MatNavList } from '@angular/material/list';
+import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
+import { NgForOf, NgIf } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { Builder } from '../../models/Builder';
 
 @Component({
     selector: 'app-documentation',
@@ -46,24 +44,25 @@ import { MatIcon } from "@angular/material/icon";
 export class DocumentationComponent implements OnInit, OnDestroy {
     @ViewChild('sidenav') sidenav!: MatSidenav;
     
-    placeholderArray = Array(10).fill(0);
     isSmallScreen = window.innerWidth < 768;
+    builders: Builder[] = [];
     
-    readonly versionsStore = inject(VersionsStore);
-    readonly builderListStore = inject(BuilderListStore);
     private subscription$ = new Subscription();
     
     constructor(
         private route: ActivatedRoute,
+        private router: Router
     ) {
     }
     
     ngOnInit() {
         this.subscription$.add(
-            this.route.params
-                .subscribe((params) => {
-                    this.versionsStore.setCurrentVersion(params.version);
-                    this.builderListStore.fetchBuilders(this.versionsStore.currentVersion() as NgVersion);
+            this.route.data
+                .pipe(
+                    filter(data => data.builders)
+                )
+                .subscribe((data) => {
+                    this.builders = data.builders;
                 })
         );
     }
@@ -85,5 +84,10 @@ export class DocumentationComponent implements OnInit, OnDestroy {
         if (this.isSmallScreen) {
             this.sidenav.close();
         }
+    }
+    
+    selectBuilder(builder: string) {
+        this.router.navigate(['/docs', this.route.snapshot.paramMap.get('version'), builder]);
+        this.closeSidenavIfMobile();
     }
 }

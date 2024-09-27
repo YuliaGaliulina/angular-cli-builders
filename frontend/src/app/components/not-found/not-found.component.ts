@@ -1,7 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { LogoComponent } from '../logo/logo.component';
 import { MatAnchor } from '@angular/material/button';
-import { VersionsStore } from "../../state/versions/versions.store";
 import { GoToDocsButtonComponent } from "../go-to-docs-button/go-to-docs-button.component";
 
 @Component({
@@ -16,5 +15,4 @@ import { GoToDocsButtonComponent } from "../go-to-docs-button/go-to-docs-button.
   styleUrl: './not-found.component.scss'
 })
 export class NotFoundComponent {
-    readonly versionsStore = inject(VersionsStore);
 }
