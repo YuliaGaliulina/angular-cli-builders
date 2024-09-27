@@ -39,6 +39,13 @@
               "includePaths": [
                 "src/app/styles"
               ]
+            },
+            "server": "src/main.server.ts",
+            "prerender": {
+              "routesFile": "../routes.txt"
+            },
+            "ssr": {
+              "entry": "server.ts"
             }
           },
           "configurations": {
@@ -61,8 +68,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "all",
-              "baseHref": "/angular-cli-builders/"
+              "outputHashing": "all"
             },
             "development": {
               "optimization": false,

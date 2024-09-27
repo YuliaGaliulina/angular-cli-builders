@@ -17,6 +17,4 @@ export const buildersResolver: ResolveFn<Observable<any>> = (route) => {
         router.navigate(['not-found']);
         return of(null);
     }
-    
-    
 };

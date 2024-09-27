@@ -1,4 +1,11 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+    Component,
+    CUSTOM_ELEMENTS_SCHEMA,
+    HostListener,
+    OnDestroy,
+    OnInit,
+    ViewChild
+} from '@angular/core';
 import {
     ActivatedRoute, Router,
     RouterLink,
@@ -51,7 +58,7 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     
     constructor(
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
     ) {
     }
     
