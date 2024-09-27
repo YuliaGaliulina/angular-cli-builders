@@ -1,6 +1,7 @@
 const express = require('express');
 const { dereference } = require('@apidevtools/json-schema-ref-parser');
 const { get } = require('axios');
+const fetchBuildersForVersion = require('../requests/fetch-builders');
 
 const router = express.Router();
 
@@ -10,23 +11,8 @@ const ANGULAR_BUILD = 'https://unpkg.com/@angular/build@';
 router.get('/:version', async (req, res) => {
     const version = req.params.version;
 
-    try {
-        const response = await get(`${ANGULAR_DEVKIT_BUILD}${version}/builders.json`);
-        const buildersResponse = response.data.builders;
-        const builders = Object.keys(buildersResponse).map(key => {
-            const majorVersion = version.split('.')[0];
-            const schemaUrl = majorVersion > 17 && key === 'application' ? `/src/builders/application/schema.json` : buildersResponse[key].schema;
-
-            return { title: key, schemaUrl }
-        });
-        return res.json(builders);
-    } catch (error) {
-        console.error("Error in /schema route:", error.response);
-        return res.status(error.status).json({
-            message: error.response.data,
-            error: error.message
-        });
-    }
+    const response = await fetchBuildersForVersion(version);
+    return res.json(response);
 });
 
 router.get('/:version/:builder', async (req, res) => {
