@@ -49,7 +49,7 @@ export class VersionsMenuComponent implements OnInit, OnDestroy {
         
         this.subscription$.add(
             this.route.data.subscribe((data) => {
-                this.builders = data.builders;
+                this.builders = data.builderData?.builders;
             })
         );
     }
@@ -60,14 +60,8 @@ export class VersionsMenuComponent implements OnInit, OnDestroy {
     
     selectVersion(version: NgVersion) {
         const versionParam = version.majorVersion;
-        const builderParam = this.route.firstChild?.snapshot.paramMap.get('builder');
+        const builderParam = this.route.snapshot.paramMap.get('builder');
         
-        const navigationPath = ['../', versionParam];
-        
-        if (builderParam) {
-            navigationPath.push(builderParam);
-        }
-        
-        this.router.navigate(navigationPath, { relativeTo: this.route });
+        this.router.navigate(['/docs/', versionParam, builderParam]);
     }
 }

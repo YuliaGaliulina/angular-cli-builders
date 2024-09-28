@@ -52,8 +52,9 @@ export class BuilderHttpService {
         }
         
         const version = VERSIONS_MAPPED.find(version => version.majorVersion === majorVersion);
-        const url = `${this.baseUrl}/api/builders/${version?.version}/${builder.title}?schemaUrl=${encodeURIComponent(
-            builder.schemaUrl)}`;
+        const encodedUri = encodeURIComponent(builder.schemaUrl);
+        const url = `${this.baseUrl}/api/builders/${version?.version}/${builder.title}?schemaUrl=${encodedUri}`;
+        
         return this.http.get<JSONSchema7>(url)
             .pipe(
                 tap((schema: any) => {

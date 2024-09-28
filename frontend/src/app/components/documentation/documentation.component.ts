@@ -12,7 +12,7 @@ import {
     RouterLinkActive,
     RouterOutlet
 } from '@angular/router';
-import { filter, Subscription } from 'rxjs';
+import { filter, map, Subscription } from 'rxjs';
 import { BuilderComponent } from './builder/builder.component';
 import { LogoComponent } from '../logo/logo.component';
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -66,10 +66,11 @@ export class DocumentationComponent implements OnInit, OnDestroy {
         this.subscription$.add(
             this.route.data
                 .pipe(
-                    filter(data => data.builders)
+                    map(data => data.builderData?.builders),
+                    filter(builders => !!builders)
                 )
-                .subscribe((data) => {
-                    this.builders = data.builders;
+                .subscribe((builders) => {
+                    this.builders = builders;
                 })
         );
     }

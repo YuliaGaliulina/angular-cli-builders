@@ -39,18 +39,13 @@ export class BuilderComponent implements OnInit, OnDestroy {
         this.subscription$.add(
             this.route.params.subscribe(paramMap => {
                 this.builder = paramMap.builder;
-            })
-        );
-        
-        this.subscription$.add(
-            this.route.parent!.params.subscribe(paramMap => {
                 this.version = paramMap.version;
             })
         );
-        
+      
         this.subscription$.add(
             this.route.data.subscribe((data) => {
-                this.schema = data.schema;
+                this.schema = data.builderData?.schema;
             })
         );
         
