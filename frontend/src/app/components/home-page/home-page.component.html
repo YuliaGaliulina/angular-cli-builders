@@ -8,16 +8,20 @@
         <h2>Understanding Builders</h2>
 
         <p>This documentation is generated dynamically from the builder schemas available in Angular CLI,
-           providing a comprehensive outline of the various builder options in your <code class="file-name">angular.json</code> file.
+           providing a comprehensive outline of the various builder options in your
+            <code class="inline-code-block">angular.json</code> file.
            Angular builders handle crucial project tasks like serving, building, and testing. Each builder offers
            configurable options you can customize to fit your project's needs.</p>
         <p>This documentation supports Angular versions 12 through 18.</p>
 
         <h2>Configuring Properties</h2>
-        <p>To configure a builder, locate its section in your <code class="file-name">angular.json</code> file and
-           adjust the
-           properties as needed. For example:</p>
-        <pre><code class="code-block">
+        <p>To configure a builder, locate its section in your <code class="inline-code-block">angular.json</code> file.
+           Find the builder configuration:
+           (e.g., <code class="inline-code-block">&#64;angular-devkit/build-angular:browser</code>).
+           The part after the colon is the builder name. Select this name from the sidebar of the documentation and
+           choose your Angular version to view relevant properties and adjust as needed. For example:</p>
+        <pre>
+            <code class="code-block">
   &#123;
     "projects": &#123;
       "your-app": &#123;
@@ -32,19 +36,23 @@
       &#125;
     &#125;
   &#125;
-        </code></pre>
+        </code>
+        </pre>
         <app-go-to-docs-button></app-go-to-docs-button>
         <p class="docs-note">
             This resource is meant to supplement, not replace, the official docs. Please use the official
             <a class="docs-link" href="https://angular.dev/" target="_blank">Angular documentation</a>
-           as your primary reference.
+            as your primary reference.
         </p>
         <footer>
             <p>© 2024 Developed by
                 <a class="docs-link" href="https://yuliagaliulina.github.io/resume/" target="_blank">Yulia Galiulina</a>
             </p>
             <p>
-                <a class="docs-link" href="https://github.com/YuliaGaliulina/angular-cli-builders/blob/main/LICENSE" target="_blank">
+                <a
+                        class="docs-link"
+                        href="https://github.com/YuliaGaliulina/angular-cli-builders/blob/main/LICENSE"
+                        target="_blank">
                     MIT License
                 </a>
             </p>
