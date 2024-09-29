@@ -53,6 +53,7 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     
     isSmallScreen = window.innerWidth < 768;
     builders: Builder[] = [];
+    versionParam = '';
     
     private subscription$ = new Subscription();
     
@@ -63,6 +64,8 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     }
     
     ngOnInit() {
+        this.versionParam = this.route.snapshot.paramMap.get('version')!;
+        
         this.subscription$.add(
             this.route.data
                 .pipe(
@@ -95,7 +98,7 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     }
     
     selectBuilder(builder: string) {
-        this.router.navigate(['/docs', this.route.snapshot.paramMap.get('version'), builder]);
+        this.router.navigate(['/docs', this.versionParam, builder]);
         this.closeSidenavIfMobile();
     }
 }
