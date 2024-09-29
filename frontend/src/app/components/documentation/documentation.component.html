@@ -25,9 +25,10 @@
             <ng-container *ngIf="builders.length > 0">
                 <div class="nav-item" *ngFor="let builder of builders">
                     <a
+                            [routerLink]="['/docs/', versionParam, builder.title]"
                             routerLinkActive="active"
                             mat-list-item
-                            (click)="selectBuilder(builder.title)">
+                            (click)="closeSidenavIfMobile()">
                         {{ builder.title }}
                     </a>
                 </div>

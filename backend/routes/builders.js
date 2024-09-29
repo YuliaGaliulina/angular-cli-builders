@@ -2,11 +2,9 @@ const express = require('express');
 const { dereference } = require('@apidevtools/json-schema-ref-parser');
 const { get } = require('axios');
 const fetchBuildersForVersion = require('../requests/fetch-builders');
+const { ANGULAR_BUILD, ANGULAR_DEVKIT_BUILD } = require('../urls');
 
 const router = express.Router();
-
-const ANGULAR_DEVKIT_BUILD = 'https://unpkg.com/@angular-devkit/build-angular@';
-const ANGULAR_BUILD = 'https://unpkg.com/@angular/build@';
 
 router.get('/:version', async (req, res) => {
     const version = req.params.version;

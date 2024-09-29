@@ -96,9 +96,4 @@ export class DocumentationComponent implements OnInit, OnDestroy {
             this.sidenav.close();
         }
     }
-    
-    selectBuilder(builder: string) {
-        this.router.navigate(['/docs', this.versionParam, builder]);
-        this.closeSidenavIfMobile();
-    }
 }

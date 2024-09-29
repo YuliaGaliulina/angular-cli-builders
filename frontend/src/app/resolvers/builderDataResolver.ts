@@ -18,6 +18,7 @@ export const builderDataResolver: ResolveFn<Observable<any>> = (route) => {
     const version = VERSIONS_MAPPED.find(version => version.majorVersion === versionParam);
     
     if (!version) {
+        loadingService.loading$.next(true);
         router.navigate(['not-found']);
         return of(null);
     }

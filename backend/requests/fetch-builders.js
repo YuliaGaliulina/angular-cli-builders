@@ -1,6 +1,5 @@
 const { get } = require('axios');
-
-const ANGULAR_DEVKIT_BUILD = 'https://unpkg.com/@angular-devkit/build-angular@';
+const { ANGULAR_DEVKIT_BUILD } = require('../urls');
 
 const fetchBuildersForVersion = async (version) => {
     try {
