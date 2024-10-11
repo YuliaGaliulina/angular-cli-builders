@@ -2,12 +2,14 @@ import {
     Component,
     CUSTOM_ELEMENTS_SCHEMA,
     HostListener,
+    inject,
     OnDestroy,
     OnInit,
+    PLATFORM_ID,
     ViewChild
 } from '@angular/core';
 import {
-    ActivatedRoute, Router,
+    ActivatedRoute,
     RouterLink,
     RouterLinkActive,
     RouterOutlet
@@ -19,7 +21,7 @@ import { MatButton, MatIconButton } from '@angular/material/button';
 import { VersionsMenuComponent } from './versions-menu/versions-menu.component';
 import { MatListItem, MatNavList } from '@angular/material/list';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
-import { NgForOf, NgIf } from '@angular/common';
+import { isPlatformBrowser, NgForOf, NgIf } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { Builder } from '../../models/Builder';
 
@@ -51,19 +53,23 @@ import { Builder } from '../../models/Builder';
 export class DocumentationComponent implements OnInit, OnDestroy {
     @ViewChild('sidenav') sidenav!: MatSidenav;
     
-    isSmallScreen = window.innerWidth < 768;
+    isSmallScreen = false;
     builders: Builder[] = [];
     versionParam = '';
     
     private subscription$ = new Subscription();
+    private readonly platform = inject(PLATFORM_ID);
     
     constructor(
         private route: ActivatedRoute,
-        private router: Router,
     ) {
     }
     
     ngOnInit() {
+        if (isPlatformBrowser(this.platform)) {
+            this.isSmallScreen = window.innerWidth < 768;
+        }
+        
         this.versionParam = this.route.snapshot.paramMap.get('version')!;
         
         this.subscription$.add(
@@ -84,7 +90,9 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     
     @HostListener('window:resize', ['$event'])
     onResize() {
-        this.isSmallScreen = window.innerWidth < 768;
+        if (isPlatformBrowser(this.platform)) {
+            this.isSmallScreen = window.innerWidth < 768;
+        }
     }
     
     toggleSidenav() {
