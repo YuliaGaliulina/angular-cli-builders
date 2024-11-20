@@ -2,9 +2,10 @@ const fs = require('fs');
 const fetchBuildersForVersion = require('../requests/fetch-builders');
 
 const ANGULAR_VERSIONS = [
-    '18.2.1',
-    '17.3.8',
-    '16.2.14',
+    '19.0.0',
+    '18.2.12',
+    '17.3.11',
+    '16.2.16',
     '15.2.11',
     '14.2.13',
     '13.3.11',
@@ -33,8 +34,6 @@ async function generateRoutes() {
         const builders = await fetchBuildersForVersion(versionObj.version);
 
         if (builders.length > 0) {
-            routes.push(`/docs/${versionObj.majorVersion}`);
-
             builders.forEach((builder) => {
                 routes.push(`/docs/${versionObj.majorVersion}/${builder.title}`);
             });

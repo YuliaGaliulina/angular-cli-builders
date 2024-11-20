@@ -72,6 +72,10 @@ export class DocumentationComponent implements OnInit, OnDestroy {
         
         this.versionParam = this.route.snapshot.paramMap.get('version')!;
         
+        this.route.params.subscribe(params => {
+            this.versionParam = params.version;
+        })
+        
         this.subscription$.add(
             this.route.data
                 .pipe(
