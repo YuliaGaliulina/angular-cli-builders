@@ -1,9 +1,10 @@
 import { NgVersion } from './models/ng-version';
 
 export const ANGULAR_VERSIONS = [
-    '18.2.1',
-    '17.3.8',
-    '16.2.14',
+    '19.0.0',
+    '18.2.12',
+    '17.3.11',
+    '16.2.16',
     '15.2.11',
     '14.2.13',
     '13.3.11',

@@ -1,5 +1,18 @@
-/
-/docs/v18
+/docs/v19/application
+/docs/v19/app-shell
+/docs/v19/browser
+/docs/v19/browser-esbuild
+/docs/v19/dev-server
+/docs/v19/extract-i18n
+/docs/v19/jest
+/docs/v19/karma
+/docs/v19/web-test-runner
+/docs/v19/protractor
+/docs/v19/private-protractor
+/docs/v19/server
+/docs/v19/ng-packagr
+/docs/v19/ssr-dev-server
+/docs/v19/prerender
 /docs/v18/application
 /docs/v18/app-shell
 /docs/v18/browser
@@ -14,7 +27,6 @@
 /docs/v18/ng-packagr
 /docs/v18/ssr-dev-server
 /docs/v18/prerender
-/docs/v17
 /docs/v17/application
 /docs/v17/app-shell
 /docs/v17/browser
@@ -29,7 +41,6 @@
 /docs/v17/ng-packagr
 /docs/v17/ssr-dev-server
 /docs/v17/prerender
-/docs/v16
 /docs/v16/application
 /docs/v16/app-shell
 /docs/v16/browser
@@ -41,7 +52,6 @@
 /docs/v16/protractor
 /docs/v16/server
 /docs/v16/ng-packagr
-/docs/v15
 /docs/v15/app-shell
 /docs/v15/browser
 /docs/v15/browser-esbuild
@@ -51,7 +61,6 @@
 /docs/v15/protractor
 /docs/v15/server
 /docs/v15/ng-packagr
-/docs/v14
 /docs/v14/app-shell
 /docs/v14/browser
 /docs/v14/browser-esbuild
@@ -61,7 +70,6 @@
 /docs/v14/protractor
 /docs/v14/server
 /docs/v14/ng-packagr
-/docs/v13
 /docs/v13/app-shell
 /docs/v13/browser
 /docs/v13/dev-server
@@ -70,7 +78,6 @@
 /docs/v13/protractor
 /docs/v13/server
 /docs/v13/ng-packagr
-/docs/v12
 /docs/v12/app-shell
 /docs/v12/browser
 /docs/v12/dev-server
