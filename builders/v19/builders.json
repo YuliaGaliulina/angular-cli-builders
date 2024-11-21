@@ -1,0 +1,62 @@
+[
+  {
+    "title": "application",
+    "schemaUrl": "/src/builders/application/schema.json"
+  },
+  {
+    "title": "app-shell",
+    "schemaUrl": "./src/builders/app-shell/schema.json"
+  },
+  {
+    "title": "browser",
+    "schemaUrl": "./src/builders/browser/schema.json"
+  },
+  {
+    "title": "browser-esbuild",
+    "schemaUrl": "./src/builders/browser-esbuild/schema.json"
+  },
+  {
+    "title": "dev-server",
+    "schemaUrl": "./src/builders/dev-server/schema.json"
+  },
+  {
+    "title": "extract-i18n",
+    "schemaUrl": "./src/builders/extract-i18n/schema.json"
+  },
+  {
+    "title": "jest",
+    "schemaUrl": "./src/builders/jest/schema.json"
+  },
+  {
+    "title": "karma",
+    "schemaUrl": "./src/builders/karma/schema.json"
+  },
+  {
+    "title": "web-test-runner",
+    "schemaUrl": "./src/builders/web-test-runner/schema.json"
+  },
+  {
+    "title": "protractor",
+    "schemaUrl": "./src/builders/protractor/schema.json"
+  },
+  {
+    "title": "private-protractor",
+    "schemaUrl": "./src/builders/protractor/schema.json"
+  },
+  {
+    "title": "server",
+    "schemaUrl": "./src/builders/server/schema.json"
+  },
+  {
+    "title": "ng-packagr",
+    "schemaUrl": "./src/builders/ng-packagr/schema.json"
+  },
+  {
+    "title": "ssr-dev-server",
+    "schemaUrl": "./src/builders/ssr-dev-server/schema.json"
+  },
+  {
+    "title": "prerender",
+    "schemaUrl": "./src/builders/prerender/schema.json"
+  }
+]

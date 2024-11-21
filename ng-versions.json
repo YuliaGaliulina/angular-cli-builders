@@ -1,0 +1,34 @@
+[
+  {
+    "version": "19.0.0",
+    "majorVersion": "19"
+  },
+  {
+    "version": "18.2.12",
+    "majorVersion": "18"
+  },
+  {
+    "version": "17.3.11",
+    "majorVersion": "17"
+  },
+  {
+    "version": "16.2.16",
+    "majorVersion": "16"
+  },
+  {
+    "version": "15.2.11",
+    "majorVersion": "15"
+  },
+  {
+    "version": "14.2.13",
+    "majorVersion": "14"
+  },
+  {
+    "version": "13.3.11",
+    "majorVersion": "13"
+  },
+  {
+    "version": "12.2.18",
+    "majorVersion": "12"
+  }
+]
