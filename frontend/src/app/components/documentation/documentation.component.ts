@@ -5,7 +5,6 @@ import {
     inject,
     OnDestroy,
     OnInit,
-    PLATFORM_ID,
     viewChild
 } from '@angular/core';
 import {
@@ -20,7 +19,6 @@ import { MatIconButton } from '@angular/material/button';
 import { VersionsMenuComponent } from './versions-menu/versions-menu.component';
 import { MatListItem, MatNavList } from '@angular/material/list';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
-import { isPlatformBrowser } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { Builder } from '../../models/Builder';
 
@@ -54,13 +52,9 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     versionParam = '';
     
     private subscription$ = new Subscription();
-    private readonly platform = inject(PLATFORM_ID);
     
     ngOnInit() {
-        if (isPlatformBrowser(this.platform)) {
-            this.isSmallScreen = window.innerWidth < 768;
-        }
-        
+        this.isSmallScreen = window.innerWidth < 768;
         this.versionParam = this.route.snapshot.paramMap.get('version')!;
         
         this.route.params.subscribe(params => {
@@ -85,9 +79,7 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     
     @HostListener('window:resize', ['$event'])
     onResize() {
-        if (isPlatformBrowser(this.platform)) {
-            this.isSmallScreen = window.innerWidth < 768;
-        }
+        this.isSmallScreen = window.innerWidth < 768;
     }
     
     toggleSidenav() {
