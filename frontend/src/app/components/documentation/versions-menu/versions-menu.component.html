@@ -1,19 +1,20 @@
 <button mat-button [matMenuTriggerFor]="menu">
-    <mat-icon
-            role="img"
-            class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color"
-            aria-hidden="true"
-            data-mat-icon-type="font">
-        arrow_drop_down
-    </mat-icon>
-    <span>{{ currentVersion }}</span>
+  <mat-icon
+    role="img"
+    class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color"
+    aria-hidden="true"
+    data-mat-icon-type="font">
+    arrow_drop_down
+  </mat-icon>
+  <span>{{ currentVersion }}</span>
 </button>
 <mat-menu #menu="matMenu">
+  @for (version of versions; track version) {
     <button
-            mat-menu-item
-            *ngFor="let version of versions"
-            (click)="selectVersion(version)"
-    >
-        v{{ version.majorVersion }}
+      mat-menu-item
+      (click)="selectVersion(version)"
+      >
+      v{{ version.majorVersion }}
     </button>
+  }
 </mat-menu>

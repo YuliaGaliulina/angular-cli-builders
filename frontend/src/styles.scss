@@ -5,7 +5,9 @@ body {
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, sans-serif;
+  line-height: 24px;
+  letter-spacing: 0.5px;
 }
 
 .property-option {
@@ -15,7 +17,7 @@ body {
 }
 
 .docs-link {
-  color: var(--mdc-text-button-label-text-color);
+  color: #005cbb;
   font-weight: 500;
   text-decoration: none;
 
@@ -27,3 +29,10 @@ body {
 h1, h2 {
   line-height: 1.5 !important;
 }
+
+p {
+  margin: 0 0 .75em;
+  color: rgb(26, 27, 31);
+  font-size: 17px;
+}
+

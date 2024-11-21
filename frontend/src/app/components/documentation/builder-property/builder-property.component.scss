@@ -1,4 +1,4 @@
-@import './variables';
+@use '../../../styles/variables';
 
 .builder-property-section {
   display: flex;
@@ -18,7 +18,7 @@
   border: none;
   background-color: transparent;
   transition: transform .1s ease-in-out;
-  color: $orange;
+  color: variables.$orange;
 }
 
 .toggle-button.collapsed {
@@ -75,11 +75,13 @@
   font-weight: 600;
   background-color: #d7e3ff5e;
   border-radius: 4px;
-  color: $orange;
+  color: variables.$orange;
   text-align: center;
   width: calc(100% - 20px);
   min-width: calc(100% - 20px);
   padding: 3px 10px;
+  letter-spacing: 0.5px;
+
 }
 
 .builder-property-type {

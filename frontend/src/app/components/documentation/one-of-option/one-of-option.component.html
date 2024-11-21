@@ -1,7 +1,7 @@
 <div class="one-of-option">
     <div class="one-of-option-title-wrapper">
-        <span class="one-of-option-title">Option {{ id + 1 }}</span>
-        <span class="one-of-option-type">{{ propertyType }}</span>
+        <span class="one-of-option-title">Option {{ id() + 1 }}</span>
+        <span class="one-of-option-type">{{ schema() | typeString }}</span>
     </div>
     <ng-content></ng-content>
 </div>

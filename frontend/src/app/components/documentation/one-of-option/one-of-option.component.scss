@@ -1,4 +1,4 @@
-@import './variables';
+@use '../../../styles/variables';
 
 .one-of-option-type {
   color: #6a737d;
@@ -19,7 +19,7 @@
 }
 
 .one-of-option-title {
-  color: $orange;
+  color: variables.$orange;
   width: 100%;
   font-weight: 500;
   white-space: nowrap;

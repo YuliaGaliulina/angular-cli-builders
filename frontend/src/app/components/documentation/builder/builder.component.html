@@ -1,26 +1,29 @@
 <div class="builder-page-container" #scrollContainer>
-    <div
-            *ngIf="schema; else noSchema"
-            class="builder-contents">
-        <h1 *ngIf="schema.title" class="builder-title">{{ schema.title }}</h1>
-        <p *ngIf="schema.description" class="builder-description">{{ schema.description }}</p>
+  @if (schema) {
+    <div class="builder-contents">
+      @if (schema.title) {
+        <h1 class="builder-title">{{ schema.title }}</h1>
+      }
+      @if (schema.description) {
+        <p class="builder-description">{{ schema.description }}</p>
+      }
+      @for (item of schema.properties | schemaProperties; track item) {
         <app-builder-property
-                *ngFor="let item of schema.properties | schemaProperties"
-                [propertyKey]="item.key"
-                [schema]="item.value"
-                [requiredArray]="schema?.required"
-        >
+          [propertyKey]="item.key"
+          [schema]="item.value"
+          [isRequired]="schema?.required && schema.required?.indexOf(item.key) !== -1">
         </app-builder-property>
+      }
     </div>
+  } @else {
+    <section class="no-schema">
+      <p>
+        No schema exists for the ‘{{ builder }}’ builder in Angular {{ version }}.
+      </p>
+      <p>
+        Please verify the Angular version or select a valid builder name from the side nav.
+      </p>
+    </section>
+  }
 </div>
 
-<ng-template #noSchema>
-    <section class="no-schema">
-        <p>
-            No schema exists for the ‘{{ builder }}’ builder in Angular {{ version }}.
-        </p>
-        <p>
-            Please verify the Angular version or select a valid builder name from the side nav.
-        </p>
-    </section>
-</ng-template>

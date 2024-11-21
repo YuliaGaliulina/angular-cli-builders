@@ -1,41 +1,43 @@
 <div class="toolbar">
-    <div class="toolbar-column">
-        <button mat-icon-button (click)="toggleSidenav()">
-            <mat-icon>menu</mat-icon>
-        </button>
-        <a class="logo-wrap" [routerLink]="['/']">
-            <app-logo class="logo"></app-logo>
-            <div>
-                <span class="logo-title">Angular CLI Builders</span>
-            </div>
-        </a>
-    </div>
-    <div class="toolbar-column toolbar-column-right">
-        <app-versions-menu></app-versions-menu>
-        <github-link
-                githubLink="https://github.com/YuliaGaliulina/angular-cli-builders"
-                textColor="var(--mdc-text-button-label-text-color)"
-        ></github-link>
-    </div>
+  <div class="toolbar-column">
+    <button mat-icon-button (click)="toggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a class="logo-wrap" [routerLink]="['/']">
+      <app-logo class="logo"></app-logo>
+      <div>
+        <span class="logo-title">Angular CLI Builders</span>
+      </div>
+    </a>
+  </div>
+  <div class="toolbar-column toolbar-column-right">
+    <app-versions-menu></app-versions-menu>
+    <github-link
+      githubLink="https://github.com/YuliaGaliulina/angular-cli-builders"
+      textColor="var(--mat-sys-primary)"
+    ></github-link>
+  </div>
 </div>
 
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #sidenav [mode]="isSmallScreen ? 'over' : 'side'" [opened]="!isSmallScreen" class="sidenav">
-        <mat-nav-list class="nav-list">
-            <ng-container *ngIf="builders.length > 0">
-                <div class="nav-item" *ngFor="let builder of builders">
-                    <a
-                            [routerLink]="['/docs/', versionParam, builder.title]"
-                            routerLinkActive="active"
-                            mat-list-item
-                            (click)="closeSidenavIfMobile()">
-                        {{ builder.title }}
-                    </a>
-                </div>
-            </ng-container>
-        </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <app-builder></app-builder>
-    </mat-sidenav-content>
+  <mat-sidenav #sidenav [mode]="isSmallScreen ? 'over' : 'side'" [opened]="!isSmallScreen" class="sidenav">
+    <mat-nav-list class="nav-list">
+      @if (builders.length > 0) {
+        @for (builder of builders; track builder) {
+          <div class="nav-item">
+            <a
+              [routerLink]="['/docs/', versionParam, builder.title]"
+              routerLinkActive="active"
+              mat-list-item
+              (click)="closeSidenavIfMobile()">
+              {{ builder.title }}
+            </a>
+          </div>
+        }
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-builder></app-builder>
+  </mat-sidenav-content>
 </mat-sidenav-container>
