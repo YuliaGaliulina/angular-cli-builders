@@ -1,9 +1,9 @@
-@if (propertyKey || schema.description) {
+@if (propertyKey() || schema().description) {
   <div class="builder-property-section">
-    @if (propertyKey) {
+    @if (propertyKey()) {
       <div class="builder-property-wrapper">
         <!--   TODO: move condition into separate method    -->
-        @if ((schema.type === 'array' && schema.items.type === 'object') || (schema.type === 'object' && schema.properties) || schema.oneOf || schema?.items?.oneOf) {
+        @if ((schema().type === 'array' && schema().items.type === 'object') || (schema().type === 'object' && schema().properties) || schema().oneOf || schema()?.items?.oneOf) {
           <button
             (click)="toggleCollapsible()"
             class="toggle-button"
@@ -11,52 +11,52 @@
               &#x25B6;
           </button>
         }
-        <strong class="builder-property-title" [innerHTML]="propertyKey | camelCaseWrap"></strong>
+        <strong class="builder-property-title" [innerHTML]="propertyKey() | camelCaseWrap"></strong>
         <span class="builder-property-type">{{ propertyType }}</span>
         <div class="badge-block">
           @if (isRequired) {
             <strong class="property-badge required">Required</strong>
           }
-          @if (schema['x-deprecated']) {
+          @if (schema()['x-deprecated']) {
             <strong class="property-badge deprecated">Deprecated</strong>
           }
         </div>
       </div>
     }
     <div class="builder-property-description">
-      @if (schema.description) {
-        <p [innerHTML]="schema.description | formatText"></p>
+      @if (schema().description) {
+        <p [innerHTML]="schema().description | formatText"></p>
       }
-      @if (schema.enum) {
-        <p>Available options: {{ schema.enum.join(' | ') }}.</p>
+      @if (schema().enum) {
+        <p>Available options: {{ schema().enum.join(' | ') }}.</p>
       }
-      @if (schema.pattern) {
-        <p>Expected format: {{ schema.pattern }}.</p>
+      @if (schema().pattern) {
+        <p>Expected format: {{ schema().pattern }}.</p>
       }
-      @if (schema?.items?.pattern) {
-        <p>Expected format: {{ schema?.items?.pattern }}.</p>
+      @if (schema()?.items?.pattern) {
+        <p>Expected format: {{ schema()?.items?.pattern }}.</p>
       }
-      @if (schema.default | json) {
-        <p>Default value: {{ schema.default | json }}.</p>
+      @if (schema().default | json) {
+        <p>Default value: {{ schema().default | json }}.</p>
       }
-      @if (schema['x-deprecated']) {
+      @if (schema()['x-deprecated']) {
         <p>
           <span>Note: </span>
-          <span [innerHTML]="schema['x-deprecated'] | formatText"></span>
+          <span [innerHTML]="schema()['x-deprecated'] | formatText"></span>
         </p>
       }
     </div>
   </div>
 }
 
-<div [ngClass]="{visible: !collapsed, highlight: highlight, 'builder-property-collapsible': !isOption}">
-  @if (isArray(schema.items)) {
+<div [ngClass]="{visible: !collapsed, highlight: highlight, 'builder-property-collapsible': !isOption()}">
+  @if (isArray(schema().items)) {
     <div class="builder-property-children">
-      @for (item of schema.items; track item) {
+      @for (item of schema().items; track item) {
         <div>
           <app-builder-property
             [schema]="item"
-            [requiredArray]="schema.items?.required"
+            [requiredArray]="schema().items?.required"
             >
           </app-builder-property>
         </div>
@@ -64,42 +64,42 @@
     </div>
   }
 
-  @if (schema.type === 'array' && schema.items.type === 'object') {
+  @if (schema().type === 'array' && schema().items.type === 'object') {
     <div class="builder-property-children">
-      @for (item of schema.items.properties | schemaProperties; track item) {
+      @for (item of schema().items.properties | schemaProperties; track item) {
         <app-builder-property
           [propertyKey]="item.key"
           [schema]="item.value"
-          [requiredArray]="schema.items?.required"
+          [requiredArray]="schema().items?.required"
           >
         </app-builder-property>
       }
     </div>
   }
 
-  @if (schema.type === 'object' && schema.properties) {
+  @if (schema().type === 'object' && schema().properties) {
     <div class="builder-property-children">
-      @for (item of schema.properties | schemaProperties; track item) {
+      @for (item of schema().properties | schemaProperties; track item) {
         <app-builder-property
           [propertyKey]="item.key"
           [schema]="item.value"
-          [requiredArray]="schema?.required"
+          [requiredArray]="schema()?.required"
           >
         </app-builder-property>
       }
     </div>
   }
 
-  @if (schema.oneOf) {
+  @if (schema().oneOf) {
     <div class="builder-property-children">
       <p class="one-of-hint">Choose one of the following options:</p>
-      @for (item of schema.oneOf; track item; let i = $index) {
+      @for (item of schema().oneOf; track item; let i = $index) {
         <div>
           <app-one-of-option [schema]="item" [id]="i">
             <app-builder-property
               [isOption]="true"
               [schema]="item"
-              [requiredArray]="schema?.required"
+              [requiredArray]="schema()?.required"
               >
             </app-builder-property>
           </app-one-of-option>
@@ -108,16 +108,16 @@
     </div>
   }
 
-  @if (schema?.items?.oneOf) {
+  @if (schema()?.items?.oneOf) {
     <div class="builder-property-children">
       <p class="one-of-hint">Choose one of the following options:</p>
-      @for (item of schema?.items?.oneOf; track item; let i = $index) {
+      @for (item of schema()?.items?.oneOf; track item; let i = $index) {
         <div>
           <app-one-of-option [schema]="item" [id]="i">
             <app-builder-property
               [isOption]="true"
               [schema]="item"
-              [requiredArray]="schema?.items?.required"
+              [requiredArray]="schema()?.items?.required"
               >
             </app-builder-property>
           </app-one-of-option>

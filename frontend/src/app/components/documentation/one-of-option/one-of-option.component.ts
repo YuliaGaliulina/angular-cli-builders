@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
-import { BuilderHelperService } from "../../../services/builder-helper.service";
+import { Component, OnChanges, SimpleChanges, inject, input } from '@angular/core';
+import { BuilderHelperService } from '../../../services/builder-helper.service';
 
 @Component({
     selector: 'app-one-of-option',
@@ -8,15 +8,15 @@ import { BuilderHelperService } from "../../../services/builder-helper.service";
 })
 export class OneOfOptionComponent implements OnChanges {
     private builderHelperService = inject(BuilderHelperService);
-
-    @Input() schema = null;
-    @Input() id: number = 0;
+    
+    readonly schema = input(null);
+    readonly id = input<number>(0);
     
     propertyType!: string;
     
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.schema.currentValue !== changes.schema.previousValue) {
-            this.propertyType = this.builderHelperService.getTypeText(this.schema)
+            this.propertyType = this.builderHelperService.getTypeText(this.schema());
         }
     }
 }

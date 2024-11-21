@@ -6,7 +6,7 @@ import {
     OnDestroy,
     OnInit,
     PLATFORM_ID,
-    ViewChild
+    viewChild
 } from '@angular/core';
 import {
     ActivatedRoute,
@@ -46,8 +46,8 @@ import { Builder } from '../../models/Builder';
 })
 export class DocumentationComponent implements OnInit, OnDestroy {
     private route = inject(ActivatedRoute);
-
-    @ViewChild('sidenav') sidenav!: MatSidenav;
+    
+    readonly sidenav = viewChild.required<MatSidenav>('sidenav');
     
     isSmallScreen = false;
     builders: Builder[] = [];
@@ -91,12 +91,12 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     }
     
     toggleSidenav() {
-        this.sidenav.toggle();
+        this.sidenav().toggle();
     }
     
     closeSidenavIfMobile() {
         if (this.isSmallScreen) {
-            this.sidenav.close();
+            this.sidenav().close();
         }
     }
 }

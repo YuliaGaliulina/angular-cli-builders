@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
+import { Component, OnChanges, SimpleChanges, inject, input } from '@angular/core';
 import { JsonPipe, NgClass } from '@angular/common';
 import { OneOfOptionComponent } from '../one-of-option/one-of-option.component';
 import { BuilderHelperService } from '../../../services/builder-helper.service';
@@ -21,11 +21,11 @@ import { FormatTextPipe } from '../../../pipes/format-text.pipe';
 })
 export class BuilderPropertyComponent implements OnChanges {
     private builderHelperService = inject(BuilderHelperService);
-
-    @Input() propertyKey = '';
-    @Input() schema: any = null;
-    @Input() isOption = false;
-    @Input() requiredArray: string[] | undefined = [];
+    
+    readonly propertyKey = input('');
+    readonly schema = input<any>(null);
+    readonly isOption = input(false);
+    readonly requiredArray = input<string[] | undefined>([]);
     
     collapsed = true;
     highlight = false;
@@ -38,13 +38,13 @@ export class BuilderPropertyComponent implements OnChanges {
     
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.schema.currentValue !== changes.schema.previousValue) {
-            this.propertyType = this.builderHelperService.getTypeText(this.schema);
+            this.propertyType = this.builderHelperService.getTypeText(this.schema());
         }
         
         if (changes.requiredArray.currentValue !== changes.requiredArray.previousValue &&
             changes.propertyKey.currentValue !== changes.propertyKey.previousValue)
         {
-            this.isRequired = this.requiredArray?.indexOf(this.propertyKey) !== -1;
+            this.isRequired = this.requiredArray()?.indexOf(this.propertyKey()) !== -1;
         }
     }
     

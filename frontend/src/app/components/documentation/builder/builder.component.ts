@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, inject, viewChild } from '@angular/core';
 import { BuilderPropertyComponent } from '../builder-property/builder-property.component';
 import { SchemaPropertiesPipe } from '../../../pipes/schema.pipe';
 import { filter, Subscription } from 'rxjs';
@@ -16,8 +16,9 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 export class BuilderComponent implements OnInit, OnDestroy {
     private route = inject(ActivatedRoute);
     private router = inject(Router);
-
-    @ViewChild('scrollContainer') topElement!: ElementRef;
+    
+    readonly topElement = viewChild.required<ElementRef>('scrollContainer');
+    
     schema!: any;
     version = '';
     builder = '';
@@ -41,9 +42,9 @@ export class BuilderComponent implements OnInit, OnDestroy {
         this.subscription$.add(
             this.router.events
                 .pipe(
-                    filter((event) => event instanceof NavigationEnd && !!this.topElement)
+                    filter((event) => event instanceof NavigationEnd && !!this.topElement())
                 ).subscribe(() => {
-                this.topElement.nativeElement.scrollIntoView(true);
+                this.topElement().nativeElement.scrollIntoView(true);
             })
         );
     }
