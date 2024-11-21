@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { NgForOf, NgIf } from '@angular/common';
 import { BuilderPropertyComponent } from '../builder-property/builder-property.component';
 import { SchemaPropertiesPipe } from '../../../pipes/schema.pipe';
 import { filter, Subscription } from 'rxjs';
@@ -8,8 +7,6 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 @Component({
     selector: 'app-builder',
     imports: [
-        NgIf,
-        NgForOf,
         BuilderPropertyComponent,
         SchemaPropertiesPipe
     ],
@@ -37,13 +34,12 @@ export class BuilderComponent implements OnInit, OnDestroy {
                 this.version = paramMap.version;
             })
         );
-      
+        
         this.subscription$.add(
             this.route.data.subscribe((data) => {
                 this.schema = data.builderData?.schema;
             })
         );
-        
         
         this.subscription$.add(
             this.router.events

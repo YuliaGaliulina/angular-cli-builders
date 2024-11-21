@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { NgForOf } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { NgVersion } from '../../../models/ng-version';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,9 +14,8 @@ import { Builder } from '../../../models/Builder';
         MatIcon,
         MatMenu,
         MatMenuItem,
-        NgForOf,
         MatMenuTrigger,
-        MatButton,
+        MatButton
     ],
     templateUrl: './versions-menu.component.html',
     styleUrl: './versions-menu.component.scss'

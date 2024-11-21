@@ -20,7 +20,7 @@ import { MatIconButton } from '@angular/material/button';
 import { VersionsMenuComponent } from './versions-menu/versions-menu.component';
 import { MatListItem, MatNavList } from '@angular/material/list';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
-import { isPlatformBrowser, NgForOf, NgIf } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { Builder } from '../../models/Builder';
 
@@ -36,8 +36,6 @@ import { Builder } from '../../models/Builder';
         MatSidenav,
         MatSidenavContainer,
         MatSidenavContent,
-        NgForOf,
-        NgIf,
         RouterLinkActive,
         MatIconButton,
         MatIcon
@@ -70,7 +68,7 @@ export class DocumentationComponent implements OnInit, OnDestroy {
         
         this.route.params.subscribe(params => {
             this.versionParam = params.version;
-        })
+        });
         
         this.subscription$.add(
             this.route.data

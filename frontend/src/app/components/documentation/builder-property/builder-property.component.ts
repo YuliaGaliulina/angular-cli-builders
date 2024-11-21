@@ -1,27 +1,20 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import {
-    JsonPipe,
-    NgClass,
-    NgForOf,
-    NgIf,
-} from "@angular/common";
-import { OneOfOptionComponent } from "../one-of-option/one-of-option.component";
-import { BuilderHelperService } from "../../../services/builder-helper.service";
-import { SchemaPropertiesPipe } from "../../../pipes/schema.pipe";
-import { CamelCaseWrapPipe } from "../../../pipes/camel-case-wrap.pipe";
-import { FormatTextPipe } from "../../../pipes/format-text.pipe";
+import { JsonPipe, NgClass } from '@angular/common';
+import { OneOfOptionComponent } from '../one-of-option/one-of-option.component';
+import { BuilderHelperService } from '../../../services/builder-helper.service';
+import { SchemaPropertiesPipe } from '../../../pipes/schema.pipe';
+import { CamelCaseWrapPipe } from '../../../pipes/camel-case-wrap.pipe';
+import { FormatTextPipe } from '../../../pipes/format-text.pipe';
 
 @Component({
     selector: 'app-builder-property',
     imports: [
-        NgForOf,
-        NgIf,
         NgClass,
         OneOfOptionComponent,
         SchemaPropertiesPipe,
         JsonPipe,
         CamelCaseWrapPipe,
-        FormatTextPipe,
+        FormatTextPipe
     ],
     templateUrl: './builder-property.component.html',
     styleUrl: './builder-property.component.scss'
