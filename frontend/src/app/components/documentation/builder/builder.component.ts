@@ -26,18 +26,14 @@ export class BuilderComponent implements OnInit, OnDestroy {
     private subscription$ = new Subscription();
     
     ngOnInit() {
-        this.subscription$.add(
-            this.route.params.subscribe(paramMap => {
-                this.builder = paramMap.builder;
-                this.version = paramMap.version;
-            })
-        );
+        this.route.params.subscribe(paramMap => {
+            this.builder = paramMap.builder;
+            this.version = paramMap.version;
+        });
         
-        this.subscription$.add(
-            this.route.data.subscribe((data) => {
-                this.schema = data.builderData?.schema;
-            })
-        );
+        this.route.data.subscribe((data) => {
+            this.schema = data.builderData?.schema;
+        });
         
         this.subscription$.add(
             this.router.events

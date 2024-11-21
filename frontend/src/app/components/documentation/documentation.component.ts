@@ -3,7 +3,6 @@ import {
     CUSTOM_ELEMENTS_SCHEMA,
     HostListener,
     inject,
-    OnDestroy,
     OnInit,
     viewChild
 } from '@angular/core';
@@ -12,7 +11,7 @@ import {
     RouterLink,
     RouterLinkActive,
 } from '@angular/router';
-import { filter, map, Subscription } from 'rxjs';
+import { filter, map } from 'rxjs';
 import { BuilderComponent } from './builder/builder.component';
 import { LogoComponent } from '../logo/logo.component';
 import { MatIconButton } from '@angular/material/button';
@@ -42,7 +41,7 @@ import { Builder } from '../../models/Builder';
     styleUrl: './documentation.component.scss',
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class DocumentationComponent implements OnInit, OnDestroy {
+export class DocumentationComponent implements OnInit {
     private route = inject(ActivatedRoute);
     
     readonly sidenav = viewChild.required<MatSidenav>('sidenav');
@@ -50,8 +49,6 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     isSmallScreen = false;
     builders: Builder[] = [];
     versionParam = '';
-    
-    private subscription$ = new Subscription();
     
     ngOnInit() {
         this.isSmallScreen = window.innerWidth < 768;
@@ -61,20 +58,14 @@ export class DocumentationComponent implements OnInit, OnDestroy {
             this.versionParam = params.version;
         });
         
-        this.subscription$.add(
-            this.route.data
-                .pipe(
-                    map(data => data.builderData?.builders),
-                    filter(builders => !!builders)
-                )
-                .subscribe((builders) => {
-                    this.builders = builders;
-                })
-        );
-    }
-    
-    ngOnDestroy(): void {
-        this.subscription$.unsubscribe();
+        this.route.data
+            .pipe(
+                map(data => data.builderData?.builders),
+                filter(builders => !!builders)
+            )
+            .subscribe((builders) => {
+                this.builders = builders;
+            })
     }
     
     @HostListener('window:resize', ['$event'])
