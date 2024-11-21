@@ -22,7 +22,7 @@
   }
 
   mat-icon {
-    color: var(--mdc-text-button-label-text-color);
+    color: var(--mat-sys-primary);
   }
 }
 
@@ -33,7 +33,7 @@
 }
 
 .logo-wrap {
-  color: var(--mdc-text-button-label-text-color);
+  color: var(--mat-sys-primary);
   display: flex;
   align-items: center;
   justify-content: center;
