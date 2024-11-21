@@ -1,4 +1,4 @@
-import { Component, OnChanges, SimpleChanges, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { JsonPipe, NgClass } from '@angular/common';
 import { OneOfOptionComponent } from '../one-of-option/one-of-option.component';
 import { SchemaPropertiesPipe } from '../../../pipes/schema.pipe';
@@ -20,27 +20,18 @@ import { TypeStringPipe } from '../../../pipes/type-string.pipe';
     templateUrl: './builder-property.component.html',
     styleUrl: './builder-property.component.scss'
 })
-export class BuilderPropertyComponent implements OnChanges {
+export class BuilderPropertyComponent {
     readonly propertyKey = input('');
     readonly schema = input<any>(null);
     readonly isOption = input(false);
-    readonly requiredArray = input<string[] | undefined>([]);
+    readonly isRequired = input(false);
     
     collapsed = true;
     highlight = false;
-    isRequired = false;
     
     isArray = Array.isArray;
     
     private timeoutId: any;
-    
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.requiredArray.currentValue !== changes.requiredArray.previousValue &&
-            changes.propertyKey.currentValue !== changes.propertyKey.previousValue)
-        {
-            this.isRequired = this.requiredArray()?.indexOf(this.propertyKey()) !== -1;
-        }
-    }
     
     toggleCollapsible() {
         this.collapsed = !this.collapsed;

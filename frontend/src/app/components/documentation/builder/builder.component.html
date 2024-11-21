@@ -11,7 +11,7 @@
         <app-builder-property
           [propertyKey]="item.key"
           [schema]="item.value"
-          [requiredArray]="schema?.required">
+          [isRequired]="schema?.required && schema.required?.indexOf(item.key) !== -1">
         </app-builder-property>
       }
     </div>

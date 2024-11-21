@@ -14,7 +14,7 @@
         <strong class="builder-property-title" [innerHTML]="propertyKey() | camelCaseWrap"></strong>
         <span class="builder-property-type">{{ schema() | typeString }}</span>
         <div class="badge-block">
-          @if (isRequired) {
+          @if (isRequired()) {
             <strong class="property-badge required">Required</strong>
           }
           @if (schema()['x-deprecated']) {
@@ -55,9 +55,7 @@
       @for (item of schema().items; track item) {
         <div>
           <app-builder-property
-            [schema]="item"
-            [requiredArray]="schema().items?.required"
-            >
+            [schema]="item">
           </app-builder-property>
         </div>
       }
@@ -70,7 +68,7 @@
         <app-builder-property
           [propertyKey]="item.key"
           [schema]="item.value"
-          [requiredArray]="schema().items?.required"
+          [isRequired]="schema().items?.required && schema().items?.required?.indexOf(item.key) !== -1"
           >
         </app-builder-property>
       }
@@ -83,8 +81,7 @@
         <app-builder-property
           [propertyKey]="item.key"
           [schema]="item.value"
-          [requiredArray]="schema()?.required"
-          >
+          [isRequired]="schema()?.required && schema()?.required?.indexOf(item.key) !== -1">
         </app-builder-property>
       }
     </div>
@@ -98,9 +95,7 @@
           <app-one-of-option [schema]="item" [id]="i">
             <app-builder-property
               [isOption]="true"
-              [schema]="item"
-              [requiredArray]="schema()?.required"
-              >
+              [schema]="item">
             </app-builder-property>
           </app-one-of-option>
         </div>
@@ -116,9 +111,7 @@
           <app-one-of-option [schema]="item" [id]="i">
             <app-builder-property
               [isOption]="true"
-              [schema]="item"
-              [requiredArray]="schema()?.items?.required"
-              >
+              [schema]="item">
             </app-builder-property>
           </app-one-of-option>
         </div>
