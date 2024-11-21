@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatAnchor } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { VERSIONS_MAPPED } from '../../angular-versions';
+import versions from '../../../../public/ng-versions.json';
 
 @Component({
     selector: 'app-go-to-docs-button',
@@ -16,7 +16,7 @@ import { VERSIONS_MAPPED } from '../../angular-versions';
 export class GoToDocsButtonComponent {
     @Input() title = 'Get started';
     
-    latestVersion = VERSIONS_MAPPED.reduce((maxVersion, currentVersion) => {
+    latestVersion = versions.reduce((maxVersion, currentVersion) => {
         return currentVersion.majorVersion > maxVersion.majorVersion ? currentVersion : maxVersion;
     });
 }

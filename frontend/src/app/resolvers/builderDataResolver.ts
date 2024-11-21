@@ -1,24 +1,18 @@
 import { ResolveFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { BuilderHttpService } from '../services/builder-http.service';
-import { finalize, map, Observable, of, switchMap } from 'rxjs';
-import { VERSIONS_MAPPED } from '../angular-versions';
+import { map, Observable, of, switchMap } from 'rxjs';
 import { Builder } from '../models/Builder';
-import { LoadingService } from '../services/loading.service';
+import versions from '../../../public/ng-versions.json';
 
 export const builderDataResolver: ResolveFn<Observable<any>> = (route) => {
     const builderHttpService = inject(BuilderHttpService);
-    const loadingService = inject(LoadingService);
     const router = inject(Router);
-    
-    loadingService.loading$.next(true);
-    
-    const versionParam = route.paramMap.get('version')!;
+    const versionParam = route.paramMap.get('version')!.split('v')[1];
     const builderParam = route.paramMap.get('builder');
-    const version = VERSIONS_MAPPED.find(version => version.majorVersion === versionParam);
+    const version = versions.find(version => version.majorVersion === versionParam);
     
     if (!version) {
-        loadingService.loading$.next(true);
         router.navigate(['not-found']);
         return of(null);
     }
@@ -32,9 +26,6 @@ export const builderDataResolver: ResolveFn<Observable<any>> = (route) => {
                 return schema$
                     .pipe(
                         map(schema => ({ schema, builders })),
-                        finalize(() => {
-                            loadingService.loading$.next(false);
-                        })
                     );
             }),
         );
