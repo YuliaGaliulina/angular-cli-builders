@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 import { JsonPipe, NgClass } from '@angular/common';
 import { OneOfOptionComponent } from '../one-of-option/one-of-option.component';
 import { SchemaPropertiesPipe } from '../../../pipes/schema.pipe';
@@ -26,23 +26,23 @@ export class BuilderPropertyComponent {
     readonly isOption = input(false);
     readonly isRequired = input(false);
     
-    collapsed = true;
-    highlight = false;
+    collapsed = signal(true);
+    highlight = signal(false);
     
     isArray = Array.isArray;
     
     private timeoutId: any;
     
     toggleCollapsible() {
-        this.collapsed = !this.collapsed;
-        this.highlight = !this.highlight;
+        this.collapsed.update(value => !value);
+        this.highlight.update(value => !value);
         
         if (this.timeoutId) {
             clearTimeout(this.timeoutId);
         }
         
         this.timeoutId = setTimeout(() => {
-            this.highlight = false;
+            this.highlight.set(false);
             this.timeoutId = null;
         }, 500);
     }

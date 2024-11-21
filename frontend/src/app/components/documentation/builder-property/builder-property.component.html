@@ -7,7 +7,7 @@
           <button
             (click)="toggleCollapsible()"
             class="toggle-button"
-            [class.collapsed]="!collapsed">
+            [class.collapsed]="!collapsed()">
               &#x25B6;
           </button>
         }
@@ -49,7 +49,7 @@
   </div>
 }
 
-<div [ngClass]="{visible: !collapsed, highlight: highlight, 'builder-property-collapsible': !isOption()}">
+<div [ngClass]="{visible: !collapsed(), highlight: highlight(), 'builder-property-collapsible': !isOption()}">
   @if (isArray(schema().items)) {
     <div class="builder-property-children">
       @for (item of schema().items; track item) {
