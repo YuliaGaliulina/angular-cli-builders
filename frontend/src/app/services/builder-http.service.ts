@@ -19,7 +19,7 @@ export class BuilderHttpService {
     getBuilders(majorVersion: string): Observable<Builder[]> {
         const version = versions.find(version => version.majorVersion === majorVersion);
         
-        return this.http.get<Builder[]>(`/builders/v${version?.majorVersion}/builders.json`)
+        return this.http.get<Builder[]>(`./builders/v${version?.majorVersion}/builders.json`)
             .pipe(
                 catchError(error => {
                     this.router.navigate(['not-found']);
@@ -30,7 +30,7 @@ export class BuilderHttpService {
     
     getBuilderSchema(majorVersion: string, builder: Builder): Observable<any> {
         const version = versions.find(version => version.majorVersion === majorVersion);
-        const url = `/builders/v${version?.majorVersion}/schema/${builder.title}.json`;
+        const url = `./builders/v${version?.majorVersion}/schema/${builder.title}.json`;
         
         return this.http.get<JSONSchema7>(url)
             .pipe(
