@@ -1,10 +1,10 @@
-import { Component, OnChanges, SimpleChanges, inject, input } from '@angular/core';
+import { Component, OnChanges, SimpleChanges, input } from '@angular/core';
 import { JsonPipe, NgClass } from '@angular/common';
 import { OneOfOptionComponent } from '../one-of-option/one-of-option.component';
-import { BuilderHelperService } from '../../../services/builder-helper.service';
 import { SchemaPropertiesPipe } from '../../../pipes/schema.pipe';
 import { CamelCaseWrapPipe } from '../../../pipes/camel-case-wrap.pipe';
 import { FormatTextPipe } from '../../../pipes/format-text.pipe';
+import { TypeStringPipe } from '../../../pipes/type-string.pipe';
 
 @Component({
     selector: 'app-builder-property',
@@ -14,14 +14,13 @@ import { FormatTextPipe } from '../../../pipes/format-text.pipe';
         SchemaPropertiesPipe,
         JsonPipe,
         CamelCaseWrapPipe,
-        FormatTextPipe
+        FormatTextPipe,
+        TypeStringPipe
     ],
     templateUrl: './builder-property.component.html',
     styleUrl: './builder-property.component.scss'
 })
 export class BuilderPropertyComponent implements OnChanges {
-    private builderHelperService = inject(BuilderHelperService);
-    
     readonly propertyKey = input('');
     readonly schema = input<any>(null);
     readonly isOption = input(false);
@@ -29,7 +28,6 @@ export class BuilderPropertyComponent implements OnChanges {
     
     collapsed = true;
     highlight = false;
-    propertyType = '';
     isRequired = false;
     
     isArray = Array.isArray;
@@ -37,10 +35,6 @@ export class BuilderPropertyComponent implements OnChanges {
     private timeoutId: any;
     
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes.schema.currentValue !== changes.schema.previousValue) {
-            this.propertyType = this.builderHelperService.getTypeText(this.schema());
-        }
-        
         if (changes.requiredArray.currentValue !== changes.requiredArray.previousValue &&
             changes.propertyKey.currentValue !== changes.propertyKey.previousValue)
         {

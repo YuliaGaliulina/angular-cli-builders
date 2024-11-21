@@ -12,7 +12,7 @@
           </button>
         }
         <strong class="builder-property-title" [innerHTML]="propertyKey() | camelCaseWrap"></strong>
-        <span class="builder-property-type">{{ propertyType }}</span>
+        <span class="builder-property-type">{{ schema() | typeString }}</span>
         <div class="badge-block">
           @if (isRequired) {
             <strong class="property-badge required">Required</strong>

@@ -1,14 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
-@Injectable({
-    providedIn: 'root'
+@Pipe({
+  standalone: true,
+  name: 'typeString'
 })
-export class BuilderHelperService {
+export class TypeStringPipe implements PipeTransform {
     
-    constructor() {
-    }
-    
-    public getTypeText(schema: any): string {
+    transform(schema: any): string {
         if (schema?.items?.type) {
             return `<${schema.items?.type}[]>`;
         } else if (schema.type === 'object') {
@@ -16,7 +14,7 @@ export class BuilderHelperService {
             const valueType = schema.additionalProperties?.type;
             return (keyType && valueType) ? `<{[key: ${keyType}]: ${valueType}}>` : `<${schema.type}>`;
         } else if (schema.type) {
-            return Object.hasOwn(schema, 'const')? `<${schema.type}: ${schema.const}>` : `<${schema.type}>`;
+            return Object.hasOwn(schema, 'const') ? `<${schema.type}: ${schema.const}>` : `<${schema.type}>`;
         }
         return '';
     }
