@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { JsonPipe, NgClass } from '@angular/common';
 import { OneOfOptionComponent } from '../one-of-option/one-of-option.component';
 import { BuilderHelperService } from '../../../services/builder-helper.service';
@@ -20,6 +20,8 @@ import { FormatTextPipe } from '../../../pipes/format-text.pipe';
     styleUrl: './builder-property.component.scss'
 })
 export class BuilderPropertyComponent implements OnChanges {
+    private builderHelperService = inject(BuilderHelperService);
+
     @Input() propertyKey = '';
     @Input() schema: any = null;
     @Input() isOption = false;
@@ -33,11 +35,6 @@ export class BuilderPropertyComponent implements OnChanges {
     isArray = Array.isArray;
     
     private timeoutId: any;
-    
-    constructor(
-        private builderHelperService: BuilderHelperService,
-    ) {
-    }
     
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.schema.currentValue !== changes.schema.previousValue) {

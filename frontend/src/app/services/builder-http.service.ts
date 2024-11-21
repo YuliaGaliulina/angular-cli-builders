@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable } from 'rxjs';
 import { Builder } from '../models/Builder';
@@ -10,11 +10,8 @@ import versions from '../../../public/ng-versions.json';
     providedIn: 'root'
 })
 export class BuilderHttpService {
-    constructor(
-        private http: HttpClient,
-        private router: Router,
-    ) {
-    }
+    private http = inject(HttpClient);
+    private router = inject(Router);
     
     getBuilders(majorVersion: string): Observable<Builder[]> {
         const version = versions.find(version => version.majorVersion === majorVersion);

@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, inject } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Pipe({
@@ -6,8 +6,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
     name: 'formatText'
 })
 export class FormatTextPipe implements PipeTransform {
-    
-    constructor(private sanitizer: DomSanitizer) {}
+    private sanitizer = inject(DomSanitizer);
     
     transform(value: string): SafeHtml {
         if (!value) {

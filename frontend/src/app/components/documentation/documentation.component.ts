@@ -45,6 +45,8 @@ import { Builder } from '../../models/Builder';
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class DocumentationComponent implements OnInit, OnDestroy {
+    private route = inject(ActivatedRoute);
+
     @ViewChild('sidenav') sidenav!: MatSidenav;
     
     isSmallScreen = false;
@@ -53,11 +55,6 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     
     private subscription$ = new Subscription();
     private readonly platform = inject(PLATFORM_ID);
-    
-    constructor(
-        private route: ActivatedRoute,
-    ) {
-    }
     
     ngOnInit() {
         if (isPlatformBrowser(this.platform)) {

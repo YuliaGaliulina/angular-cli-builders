@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { BuilderPropertyComponent } from '../builder-property/builder-property.component';
 import { SchemaPropertiesPipe } from '../../../pipes/schema.pipe';
 import { filter, Subscription } from 'rxjs';
@@ -14,18 +14,15 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
     styleUrl: './builder.component.scss'
 })
 export class BuilderComponent implements OnInit, OnDestroy {
+    private route = inject(ActivatedRoute);
+    private router = inject(Router);
+
     @ViewChild('scrollContainer') topElement!: ElementRef;
     schema!: any;
     version = '';
     builder = '';
     
     private subscription$ = new Subscription();
-    
-    constructor(
-        private route: ActivatedRoute,
-        private router: Router,
-    ) {
-    }
     
     ngOnInit() {
         this.subscription$.add(

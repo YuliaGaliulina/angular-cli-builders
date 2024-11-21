@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatButton } from '@angular/material/button';
@@ -21,17 +21,14 @@ import { Builder } from '../../../models/Builder';
     styleUrl: './versions-menu.component.scss'
 })
 export class VersionsMenuComponent implements OnInit, OnDestroy {
+    private route = inject(ActivatedRoute);
+    private router = inject(Router);
+
     versions = versions;
     currentVersion!: string;
     builders: Builder[] = [];
     
     private subscription$ = new Subscription();
-    
-    constructor(
-        private route: ActivatedRoute,
-        private router: Router
-    ) {
-    }
     
     ngOnInit() {
         this.subscription$.add(
