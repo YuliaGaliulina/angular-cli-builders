@@ -5,7 +5,6 @@ import versions from '../../../../public/ng-versions.json';
 
 @Component({
     selector: 'app-go-to-docs-button',
-    standalone: true,
     imports: [
         MatAnchor,
         RouterLink

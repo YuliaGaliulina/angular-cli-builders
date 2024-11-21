@@ -12,12 +12,11 @@ import {
     ActivatedRoute,
     RouterLink,
     RouterLinkActive,
-    RouterOutlet
 } from '@angular/router';
 import { filter, map, Subscription } from 'rxjs';
 import { BuilderComponent } from './builder/builder.component';
 import { LogoComponent } from '../logo/logo.component';
-import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIconButton } from '@angular/material/button';
 import { VersionsMenuComponent } from './versions-menu/versions-menu.component';
 import { MatListItem, MatNavList } from '@angular/material/list';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
@@ -27,12 +26,9 @@ import { Builder } from '../../models/Builder';
 
 @Component({
     selector: 'app-documentation',
-    standalone: true,
     imports: [
-        RouterOutlet,
         BuilderComponent,
         LogoComponent,
-        MatButton,
         VersionsMenuComponent,
         RouterLink,
         MatListItem,

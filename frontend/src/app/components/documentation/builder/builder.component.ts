@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { KeyValuePipe, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
 import { BuilderPropertyComponent } from '../builder-property/builder-property.component';
 import { SchemaPropertiesPipe } from '../../../pipes/schema.pipe';
 import { filter, Subscription } from 'rxjs';
@@ -8,18 +7,14 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({
     selector: 'app-builder',
-    standalone: true,
     imports: [
-        MatProgressSpinner,
         NgIf,
-        NgTemplateOutlet,
         NgForOf,
         BuilderPropertyComponent,
-        KeyValuePipe,
         SchemaPropertiesPipe
     ],
     templateUrl: './builder.component.html',
-    styleUrl: './builder.component.scss',
+    styleUrl: './builder.component.scss'
 })
 export class BuilderComponent implements OnInit, OnDestroy {
     @ViewChild('scrollContainer') topElement!: ElementRef;

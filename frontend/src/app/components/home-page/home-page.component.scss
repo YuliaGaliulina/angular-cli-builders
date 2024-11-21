@@ -1,4 +1,4 @@
-@import './variables';
+@use '../../styles/variables';
 
 .flexbox-centered {
   display: flex;
@@ -70,7 +70,7 @@ p {
     padding: 20px;
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: $pale-blue;
+    background-color: variables.$pale-blue;
 
     h1, h2 {
       color: #3f51b5;
@@ -90,8 +90,8 @@ p {
     .inline-code-block {
       padding: 2px 4px;
       border-radius: 4px;
-      background-color: $prop-background;
-      color: $orange;
+      background-color: variables.$prop-background;
+      color: variables.$orange;
       font-weight: 500;
     }
 

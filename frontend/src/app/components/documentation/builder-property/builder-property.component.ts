@@ -1,12 +1,9 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import {
     JsonPipe,
-    KeyValuePipe,
     NgClass,
     NgForOf,
     NgIf,
-    NgSwitch,
-    NgSwitchCase,
 } from "@angular/common";
 import { OneOfOptionComponent } from "../one-of-option/one-of-option.component";
 import { BuilderHelperService } from "../../../services/builder-helper.service";
@@ -16,15 +13,11 @@ import { FormatTextPipe } from "../../../pipes/format-text.pipe";
 
 @Component({
     selector: 'app-builder-property',
-    standalone: true,
     imports: [
-        NgSwitch,
-        NgSwitchCase,
         NgForOf,
         NgIf,
         NgClass,
         OneOfOptionComponent,
-        KeyValuePipe,
         SchemaPropertiesPipe,
         JsonPipe,
         CamelCaseWrapPipe,

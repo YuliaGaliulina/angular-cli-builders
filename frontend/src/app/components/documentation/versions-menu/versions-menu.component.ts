@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { NgForOf, NgIf } from '@angular/common';
+import { NgForOf } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { NgVersion } from '../../../models/ng-version';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,7 +11,6 @@ import { Builder } from '../../../models/Builder';
 
 @Component({
     selector: 'app-versions-menu',
-    standalone: true,
     imports: [
         MatIcon,
         MatMenu,
@@ -19,7 +18,6 @@ import { Builder } from '../../../models/Builder';
         NgForOf,
         MatMenuTrigger,
         MatButton,
-        NgIf
     ],
     templateUrl: './versions-menu.component.html',
     styleUrl: './versions-menu.component.scss'
