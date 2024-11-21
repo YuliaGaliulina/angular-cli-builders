@@ -1,0 +1,38 @@
+[
+  {
+    "title": "app-shell",
+    "schemaUrl": "./src/app-shell/schema.json"
+  },
+  {
+    "title": "browser",
+    "schemaUrl": "./src/browser/schema.json"
+  },
+  {
+    "title": "dev-server",
+    "schemaUrl": "./src/dev-server/schema.json"
+  },
+  {
+    "title": "extract-i18n",
+    "schemaUrl": "./src/extract-i18n/schema.json"
+  },
+  {
+    "title": "karma",
+    "schemaUrl": "./src/karma/schema.json"
+  },
+  {
+    "title": "protractor",
+    "schemaUrl": "./src/protractor/schema.json"
+  },
+  {
+    "title": "tslint",
+    "schemaUrl": "./src/tslint/schema.json"
+  },
+  {
+    "title": "server",
+    "schemaUrl": "./src/server/schema.json"
+  },
+  {
+    "title": "ng-packagr",
+    "schemaUrl": "./src/ng-packagr/schema.json"
+  }
+]

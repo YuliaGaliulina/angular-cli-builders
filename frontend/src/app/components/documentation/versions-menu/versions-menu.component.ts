@@ -6,7 +6,7 @@ import { MatButton } from '@angular/material/button';
 import { NgVersion } from '../../../models/ng-version';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { VERSIONS_MAPPED } from '../../../angular-versions';
+import versions from '../../../../../public/ng-versions.json';
 import { Builder } from '../../../models/Builder';
 
 @Component({
@@ -25,7 +25,7 @@ import { Builder } from '../../../models/Builder';
     styleUrl: './versions-menu.component.scss'
 })
 export class VersionsMenuComponent implements OnInit, OnDestroy {
-    versions = VERSIONS_MAPPED;
+    versions = versions;
     currentVersion!: string;
     builders: Builder[] = [];
     
@@ -40,9 +40,9 @@ export class VersionsMenuComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.subscription$.add(
             this.route.paramMap.subscribe(paramMap => {
-                const versionParam = paramMap.get('version');
+                const versionParam = paramMap.get('version')!.split('v')[1];
                 if (versionParam) {
-                    this.currentVersion = VERSIONS_MAPPED.find(version => version.majorVersion === versionParam)!.version;
+                    this.currentVersion = versions.find(version => version.majorVersion === versionParam)!.version;
                 }
             })
         );
@@ -62,6 +62,6 @@ export class VersionsMenuComponent implements OnInit, OnDestroy {
         const versionParam = version.majorVersion;
         const builderParam = this.route.snapshot.paramMap.get('builder');
         
-        this.router.navigate(['/docs/', versionParam, builderParam]);
+        this.router.navigate(['/docs/', 'v' + versionParam, builderParam]);
     }
 }
