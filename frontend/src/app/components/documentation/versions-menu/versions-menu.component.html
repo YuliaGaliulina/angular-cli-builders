@@ -6,14 +6,13 @@
     data-mat-icon-type="font">
     arrow_drop_down
   </mat-icon>
-  <span>{{ currentVersion }}</span>
+  <span>{{ currentVersion() }}</span>
 </button>
 <mat-menu #menu="matMenu">
   @for (version of versions; track version) {
     <button
       mat-menu-item
-      (click)="selectVersion(version)"
-      >
+      (click)="selectVersion('v' + version.majorVersion)">
       v{{ version.majorVersion }}
     </button>
   }

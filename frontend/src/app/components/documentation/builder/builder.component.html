@@ -1,24 +1,24 @@
 <div class="builder-page-container" #scrollContainer>
-  @if (schema) {
+  @if (schema()) {
     <div class="builder-contents">
-      @if (schema.title) {
-        <h1 class="builder-title">{{ schema.title }}</h1>
+      @if (schema().title) {
+        <h1 class="builder-title">{{ schema().title }}</h1>
       }
-      @if (schema.description) {
-        <p class="builder-description">{{ schema.description }}</p>
+      @if (schema().description) {
+        <p class="builder-description">{{ schema().description }}</p>
       }
-      @for (item of schema.properties | schemaProperties; track item) {
+      @for (item of schema().properties | schemaProperties; track item.key) {
         <app-builder-property
           [propertyKey]="item.key"
           [schema]="item.value"
-          [isRequired]="schema?.required && schema.required?.indexOf(item.key) !== -1">
+          [isRequired]="!!schema().required && schema().required?.indexOf(item.key) !== -1">
         </app-builder-property>
       }
     </div>
   } @else {
     <section class="no-schema">
       <p>
-        No schema exists for the ‘{{ builder }}’ builder in Angular {{ version }}.
+        No schema exists for the ‘{{ builder() }}’ builder in Angular {{ version() }}.
       </p>
       <p>
         Please verify the Angular version or select a valid builder name from the side nav.

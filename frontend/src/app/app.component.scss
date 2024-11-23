@@ -1,4 +1,10 @@
-.progress-bar {
-  position: absolute;
-  top: 0;
+:host {
+  opacity: 1;
+  transition: opacity 0.5s ease, height 0.5s ease;
+  background-color: white;
+
+  &.visible {
+    opacity: 1;
+    z-index: 10;
+  }
 }

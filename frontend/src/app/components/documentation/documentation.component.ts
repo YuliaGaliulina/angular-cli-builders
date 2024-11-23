@@ -3,7 +3,7 @@ import {
     CUSTOM_ELEMENTS_SCHEMA,
     HostListener,
     inject,
-    OnInit,
+    OnInit, signal,
     viewChild
 } from '@angular/core';
 import {
@@ -11,7 +11,7 @@ import {
     RouterLink,
     RouterLinkActive,
 } from '@angular/router';
-import { filter, map } from 'rxjs';
+import { distinctUntilChanged, map, switchMap, tap } from 'rxjs';
 import { BuilderComponent } from './builder/builder.component';
 import { LogoComponent } from '../logo/logo.component';
 import { MatIconButton } from '@angular/material/button';
@@ -20,6 +20,7 @@ import { MatListItem, MatNavList } from '@angular/material/list';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { MatIcon } from '@angular/material/icon';
 import { Builder } from '../../models/Builder';
+import { BuilderHttpService } from '../../services/builder-http.service';
 
 @Component({
     selector: 'app-documentation',
@@ -43,34 +44,31 @@ import { Builder } from '../../models/Builder';
 })
 export class DocumentationComponent implements OnInit {
     private route = inject(ActivatedRoute);
+    private builderHttpService = inject(BuilderHttpService);
     
     readonly sidenav = viewChild.required<MatSidenav>('sidenav');
     
-    isSmallScreen = false;
-    builders: Builder[] = [];
-    versionParam = '';
+    isSmallScreen = signal(window.innerWidth < 768);
+    builders = signal<Builder[]>([]);
+    versionParam = signal('');
     
     ngOnInit() {
-        this.isSmallScreen = window.innerWidth < 768;
-        this.versionParam = this.route.snapshot.paramMap.get('version')!;
-        
-        this.route.params.subscribe(params => {
-            this.versionParam = params.version;
-        });
-        
-        this.route.data
-            .pipe(
-                map(data => data.builderData?.builders),
-                filter(builders => !!builders)
-            )
-            .subscribe((builders) => {
-                this.builders = builders;
+        this.route.params.pipe(
+            map((params) => params.version),
+            distinctUntilChanged(),
+            tap((version) => this.versionParam.set(version)),
+            switchMap(version => {
+                return this.builderHttpService.getBuilders(version);
             })
+        )
+            .subscribe(builders => {
+                this.builders.set(builders);
+            });
     }
     
     @HostListener('window:resize', ['$event'])
     onResize() {
-        this.isSmallScreen = window.innerWidth < 768;
+        this.isSmallScreen.set(window.innerWidth < 768);
     }
     
     toggleSidenav() {
@@ -78,7 +76,7 @@ export class DocumentationComponent implements OnInit {
     }
     
     closeSidenavIfMobile() {
-        if (this.isSmallScreen) {
+        if (this.isSmallScreen()) {
             this.sidenav().close();
         }
     }

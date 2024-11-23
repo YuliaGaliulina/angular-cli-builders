@@ -20,13 +20,13 @@
 </div>
 
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav [mode]="isSmallScreen ? 'over' : 'side'" [opened]="!isSmallScreen" class="sidenav">
+  <mat-sidenav #sidenav [mode]="isSmallScreen() ? 'over' : 'side'" [opened]="!isSmallScreen()" class="sidenav">
     <mat-nav-list class="nav-list">
-      @if (builders.length > 0) {
-        @for (builder of builders; track builder) {
+      @if (builders().length > 0) {
+        @for (builder of builders(); track builder.title) {
           <div class="nav-item">
             <a
-              [routerLink]="['/docs/', versionParam, builder.title]"
+              [routerLink]="['/docs/', versionParam(), builder.title]"
               routerLinkActive="active"
               mat-list-item
               (click)="closeSidenavIfMobile()">

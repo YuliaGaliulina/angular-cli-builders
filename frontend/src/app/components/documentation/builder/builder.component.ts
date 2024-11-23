@@ -1,8 +1,10 @@
-import { Component, ElementRef, OnDestroy, OnInit, inject, viewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, inject, viewChild, signal } from '@angular/core';
 import { BuilderPropertyComponent } from '../builder-property/builder-property.component';
 import { SchemaPropertiesPipe } from '../../../pipes/schema.pipe';
-import { filter, Subscription } from 'rxjs';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, Subscription, switchMap, tap } from 'rxjs';
+import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
+import { BuilderHttpService } from '../../../services/builder-http.service';
+import { JSONSchema7 } from 'json-schema';
 
 @Component({
     selector: 'app-builder',
@@ -16,24 +18,29 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 export class BuilderComponent implements OnInit, OnDestroy {
     private route = inject(ActivatedRoute);
     private router = inject(Router);
+    private builderHttpService = inject(BuilderHttpService);
     
     readonly topElement = viewChild.required<ElementRef>('scrollContainer');
     
-    schema!: any;
-    version = '';
-    builder = '';
+    schema = signal<JSONSchema7>({});
+    version = signal('');
+    builder = signal('');
     
     private subscription$ = new Subscription();
     
     ngOnInit() {
-        this.route.params.subscribe(paramMap => {
-            this.builder = paramMap.builder;
-            this.version = paramMap.version;
-        });
-        
-        this.route.data.subscribe((data) => {
-            this.schema = data.builderData?.schema;
-        });
+        this.route.params.pipe(
+            tap((params) => {
+                this.builder.set(params.builder);
+                this.version.set(params.version);
+            }),
+            switchMap((params: Params) => {
+                return this.builderHttpService.getBuilderSchema(params.version, params.builder)
+            })
+        )
+            .subscribe((schema) => {
+                this.schema.set(schema);
+            });
         
         this.subscription$.add(
             this.router.events
